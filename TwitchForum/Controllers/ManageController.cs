@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using TwitchForum.DAL;
 using TwitchForum.Models;
 
 namespace TwitchForum.Controllers
@@ -32,9 +33,9 @@ namespace TwitchForum.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -333,7 +334,8 @@ namespace TwitchForum.Controllers
             base.Dispose(disposing);
         }
 
-#region Вспомогательные приложения
+        #region Вспомогательные приложения
+
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +386,6 @@ namespace TwitchForum.Controllers
             Error
         }
 
-#endregion
+        #endregion Вспомогательные приложения
     }
 }
