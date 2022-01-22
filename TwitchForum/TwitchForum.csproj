@@ -203,7 +203,12 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\img\SiteLogo.png" />
+    <Content Include="Content\img\The-International-2019 - Копировать.jpg" />
     <Content Include="Content\img\The-International-2019.jpg" />
+    <Content Include="Content\img\Twitch_Forum.png" />
+    <Content Include="Content\img\[HEADER]+eSports+03.gif" />
+    <Content Include="Content\img\фон темныйpsd.jpg" />
+    <Content Include="Content\img\SiteLogo.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -235,6 +240,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\img\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

@@ -1,31 +1,41 @@
 ﻿body {
     padding-bottom: 20px;
+    background-color: #6a43e9;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    /*    padding-left: 15px;
+    padding-right: 15px;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists
    will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
-    white-space: normal;
+    /*    white-space: normal;*/
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 450px;
 }
 
 .body-ground {
-    background: center / contain no-repeat url(img/The-International-2019.jpg), #eee 35% url(img/The-International-2019.jpg);
+    background-color: #411182;
+    background-image: url('img/фон темныйpsd.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .first-page {
     height: 100vh;
+}
+
+.search-border {
+    border-radius: 30px;
 }

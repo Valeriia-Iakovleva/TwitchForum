@@ -9,11 +9,28 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @*<header class="p-3 bg-dark text-white navbar-fixed-top mb-auto">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="~/Content/img/SiteLogo.png"></use></svg>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>*@
     <header class="p-3 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="~/Content/img/SiteLogo.png"></use></svg>
+                    <img width="40" height="32" src="~/Content/img/SiteLogo.png" />
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -25,30 +42,15 @@
                 </ul>
 
                 @Html.Partial("_LoginPartial")
+
+                @*<div class="text-end">
+                        <button type="button" class="btn btn-outline-light me-2">Login</button>
+                        <button type="button" class="@*btn btn-warning* >Sign-up</button>
+                    </div>*@
             </div>
         </div>
     </header>
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Информация", "About", "Home")</li>
-                        <li>@Html.ActionLink("Связаться", "Contact", "Home")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -58,7 +60,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/Scripts/bootstrap.js")
-    @RenderSection("scripts", required: false)
     @RenderSection("scripts", required: false)
 </body>
 </html>
