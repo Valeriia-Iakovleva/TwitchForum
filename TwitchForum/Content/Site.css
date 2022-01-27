@@ -39,3 +39,13 @@ textarea {
 .search-border {
     border-radius: 30px;
 }
+
+.user {
+    font-style: italic;
+    color: red;
+}
+
+.none {
+    color: yellow;
+    text-transform: uppercase;
+}

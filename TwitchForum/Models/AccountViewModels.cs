@@ -31,6 +31,7 @@ namespace TwitchForum.Models
         [Required]
         [Display(Name = "Код")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Запомнить браузер?")]
@@ -50,8 +51,7 @@ namespace TwitchForum.Models
     {
         [Required]
         [Display(Name = "Адрес электронной почты")]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -68,6 +68,10 @@ namespace TwitchForum.Models
         [EmailAddress]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Ваше имя видимое для других пользователей")]
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]

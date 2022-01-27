@@ -7,13 +7,13 @@ namespace TwitchForum.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Inital : IMigrationMetadata
+    public sealed partial class newInitial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Inital));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newInitial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202201191815075_Inital"; }
+            get { return "202201261426330_newInitial"; }
         }
         
         string IMigrationMetadata.Source

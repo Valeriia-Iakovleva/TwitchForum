@@ -11,9 +11,19 @@ namespace TwitchForum.DAL.Models
 {
     public class User : IdentityUser
     {
-        public string UserName { get; set; }
+        public User()
+        {
+            Messages = new HashSet<Message>();
+            Answers = new List<Answer>();
+            Discussions = new List<Discussion>();
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Discussion> Discussions { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

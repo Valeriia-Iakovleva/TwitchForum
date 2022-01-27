@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TwitchForum.DAL.Models
 {
-    public class Message
+    public class Answer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         public string Text { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         public User Sender { get; set; }
 
-        public string UserId { get; set; }
-
-        public DateTime SendingTime { get; set; } = DateTime.Now;
+        public int? DiscussionId { get; set; }
+        public Discussion Discussion { get; set; }
     }
 }

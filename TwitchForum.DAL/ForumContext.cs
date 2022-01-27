@@ -17,6 +17,9 @@ namespace TwitchForum.DAL
     public class ForumContext : IdentityDbContext<User>
     {
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Channel> Channels { get; set; }
+        public DbSet<Discussion> Discussions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         public ForumContext() : base("ForumContext")
         {
@@ -38,6 +41,7 @@ namespace TwitchForum.DAL
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Message>().HasOptional<User>(x => x.Sender).WithMany(m => m.Messages).HasForeignKey(x => x.UserId);
             //this.SeedUsers(modelBuilder);
             //this.SeedUserRoles(modelBuilder);
         }
@@ -46,7 +50,7 @@ namespace TwitchForum.DAL
         {
             protected override void Seed(ForumContext context)
             {
-                InitializeIdentityForEF(context);
+                //InitializeIdentityForEF(context);
                 base.Seed(context);
             }
 
@@ -81,7 +85,7 @@ namespace TwitchForum.DAL
                         };
                         userManager.Create(newUser, "Password1");
                         userManager.SetLockoutEnabled(newUser.Id, false);
-                        userManager.AddToRole(newUser.Id, "Admin");
+                        userManager.AddToRole(newUser.Id, "admin");
                     }
                 }
             }
