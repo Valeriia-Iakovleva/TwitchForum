@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Web;
 using Microsoft.AspNet.Identity;
 
-namespace TwitchForum.BLL.AcountsServices
+namespace TwitchForum.DAL.AcountsServices
 {
     public class EmailService : IIdentityMessageService
     {

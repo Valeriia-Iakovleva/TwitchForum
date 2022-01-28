@@ -27,6 +27,11 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Channel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Channel> GetById(int id)
         {
             throw new NotImplementedException();
@@ -38,11 +43,6 @@ namespace TwitchForum.DAL.Repositories
         }
 
         public Channel Update(Channel item)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Channel>> IRepository<Channel>.GetN(int n)
         {
             throw new NotImplementedException();
         }

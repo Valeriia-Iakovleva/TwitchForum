@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 
-namespace TwitchForum.BLL.AcountsServices
+namespace TwitchForum.DAL.AcountsServices
 {
     public class SmsService : IIdentityMessageService
     {

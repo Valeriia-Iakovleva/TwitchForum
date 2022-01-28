@@ -27,9 +27,10 @@ namespace TwitchForum.Hubs
         public void Send(string name, string message)
         {
             // Call the addNewMessageToPage method to update clients.
-            //if (Context.User.IsInRole("user")
-
-            Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);
+            if (Context.User.IsInRole("user"))
+                Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);
+            else
+                Clients.All.addMenegerMessageToPage(Context.User.Identity.Name, message);
             SaveMessege(Context.User.Identity.Name, message);
         }
 

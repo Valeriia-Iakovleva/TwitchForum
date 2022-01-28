@@ -9,7 +9,7 @@ using TwitchForum.DAL.Repositories.Interfaces;
 
 namespace TwitchForum.DAL.Repositories
 {
-    public class MessagesRepository : IRepository<Message>
+    public class MessagesRepository : IMessagesRepository
     {
         private readonly ForumContext _forumContext;
 
@@ -36,14 +36,19 @@ namespace TwitchForum.DAL.Repositories
             return await _forumContext.Messages.FindAsync(item) == null;
         }
 
+        public IEnumerable<Message> GetAll()
+        {
+            return _forumContext.Messages.ToList();
+        }
+
         public Task<Message> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Message>> GetN(int n)
+        public IEnumerable<Message> GetN(int n)
         {
-            return await _forumContext.Messages.Take(n).ToListAsync();
+            return _forumContext.Messages.Take(n).ToList();
         }
 
         public Message Update(Message item)

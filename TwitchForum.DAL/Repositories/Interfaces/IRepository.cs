@@ -8,7 +8,9 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 {
     public interface IRepository<T>
     {
-        Task<IEnumerable<T>> GetN(int n);
+        IEnumerable<T> GetAll();
+
+        IEnumerable<T> GetN(int n);
 
         Task<T> GetById(int id);
 

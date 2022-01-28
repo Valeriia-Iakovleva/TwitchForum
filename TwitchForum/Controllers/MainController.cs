@@ -9,14 +9,18 @@ using TwitchForum.DAL.Models;
 using TwitchForum.DAL.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using TwitchForum.BLL.Services.Interfaces;
+using TwitchForum.Models;
+using PagedList;
 
 namespace TwitchForum.Controllers
 {
     public class MainController : Controller
     {
         private ApplicationUserManager _userManager;
-        private readonly IRepository<Message> _messageRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IMessagesService _messageService;
+        private readonly IUserService _userService;
+        private readonly IChannelService _channelService;
 
         public ApplicationUserManager UserManager
         {
@@ -30,19 +34,22 @@ namespace TwitchForum.Controllers
             }
         }
 
-        public MainController(ApplicationUserManager userManager, IRepository<Message> repository, IUserRepository userRepository)
+        public MainController(ApplicationUserManager userManager, IMessagesService messageRepository, IUserService userRepository, IChannelService channelService)
         {
             UserManager = userManager;
-            _messageRepository = repository;
-            _userRepository = userRepository;
+            _messageService = messageRepository;
+            _userService = userRepository;
+            _channelService = channelService;
         }
 
         // GET: Main
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var currentUser = this.User;
-            ViewBag.Messege = currentUser.Identity.Name;
-            return View();
+            var mainViewModel = new MainViewModel();
+            mainViewModel.Messages = _messageService.GetAll().ToPagedList(mainViewModel.NumberfMesseges, page ?? 1);
+            mainViewModel.Channels = _channelService.GetN(5).ToList();
+            return View(mainViewModel);
         }
 
         public ActionResult SendMessege()
@@ -53,9 +60,9 @@ namespace TwitchForum.Controllers
         [HttpPost]
         public async Task<ActionResult> Send(Message m)
         {
-            var user = await _userRepository.GetByName(User.Identity.Name);
+            var user = await _userService.GetByName(User.Identity.Name);
             Message message = new Message() { Text = m.Text, Sender = user };
-            _messageRepository.Add(message);
+            await _messageService.Add(message);
             return Redirect("/Main/Index");
         }
     }

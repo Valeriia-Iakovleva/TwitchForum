@@ -20,6 +20,11 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Answer> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Answer> GetById(int id)
         {
             throw new NotImplementedException();
@@ -31,6 +36,11 @@ namespace TwitchForum.DAL.Repositories
         }
 
         public Answer Update(Answer item)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Answer> IRepository<Answer>.GetN(int n)
         {
             throw new NotImplementedException();
         }

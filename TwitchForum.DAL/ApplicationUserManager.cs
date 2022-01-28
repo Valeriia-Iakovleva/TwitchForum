@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TwitchForum.BLL.AcountsServices;
+using TwitchForum.DAL.AcountsServices;
 using TwitchForum.DAL.Models;
 
 namespace TwitchForum.DAL

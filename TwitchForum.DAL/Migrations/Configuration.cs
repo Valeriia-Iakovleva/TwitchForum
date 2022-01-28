@@ -55,7 +55,7 @@
                 new Channel() { Name = "Myth", OwnerName = "Ali Kabbani", Followers = 7400000 },
                 new Channel() { Name = "Heelmike", OwnerName = "Michael Peters", Followers = 7400000 },
                 new Channel() { Name = "Nix", OwnerName = "Alexander Levin", Followers = 175000 }
-                ); var userm = new User() { UserName = "manager", Email = "twitchmanageruser@gmail.com", };
+                );
             context.SaveChanges();
             context.Discussions.AddOrUpdate(new Discussion() { Title = "Сикрет успеха Ninja", Channel = context.Channels.FirstOrDefault(x => x.Name == "Ninja"), ChannelId = context.Channels.FirstOrDefault(x => x.Name == "Ninja").Id, Text = @"Самый популярный видеоблогер — Пьюдипай, а самый популярный стример — Нинджа. А теперь он один из 100 самых влиятельных людей мира по версии Time. Редактор сайта «Чемпионат» Георгий Ядвидчук рассказывает, как 27-летний стример стал популярным и куда его привел хайп.
                    Как Нинджа стал популярным
