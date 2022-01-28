@@ -299,6 +299,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\img\admin-logo.png" />
+    <Content Include="Content\img\manager-logo.png" />
     <Content Include="Content\img\SiteLogo.png" />
     <Content Include="Content\img\The-International-2019 - Копировать.jpg" />
     <Content Include="Content\img\The-International-2019.jpg" />

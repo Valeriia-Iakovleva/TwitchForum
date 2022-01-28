@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TwitchForum.BLL.Services;
+using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL;
 using TwitchForum.DAL.Models;
 using TwitchForum.DAL.Repositories.Interfaces;
@@ -11,18 +14,21 @@ namespace TwitchForum.Hubs
 {
     public class ChatHub : Hub
     {
-        private readonly IRepository<Message> _messageRepository;
-        private readonly IUserRepository _userRepository;
+        [Inject]
+        public IUserService userService { get; set; }
+
+        [Inject]
+        public IMessagesService messagesService { get; set; }
 
         public ChatHub()
         {
         }
 
-        public ChatHub(IRepository<Message> repository, IUserRepository userRepository)
-        {
-            _messageRepository = repository;
-            _userRepository = userRepository;
-        }
+        //public ChatHub(IUserService userService, IMessagesService messagesService)
+        //{
+        //    _userService = userService;
+        //    _messagesService = messagesService;
+        //}
 
         public void Send(string name, string message)
         {
@@ -36,8 +42,8 @@ namespace TwitchForum.Hubs
 
         private async void SaveMessege(string name, string message)
         {
-            var user = await _userRepository.GetByName(name);
-            _messageRepository.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
+            var user = await userService.GetByName(name);
+            await messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
         }
     }
 }

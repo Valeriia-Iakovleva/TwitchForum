@@ -33,6 +33,7 @@ namespace TwitchForum.DependencyInjection
             Bind<IMessagesService>().To<MessagesService>();
             Bind<IChannelService>().To<ChannelService>();
             Bind<IUserService>().To<UserService>();
+            //Bind<IUserService>().To<UserService>().WithPropertyValue("userService", new UnitOfWork());
         }
     }
 }

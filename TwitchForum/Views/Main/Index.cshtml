@@ -25,26 +25,76 @@
 <div class="container ">
     <div class="row justify-content-evenly">
         <div class="col-md-8 accordion-body">
-            <h2>Chat</h2>
+            <h2>Чат</h2>
             <div class="container">
                 <ul id="discussion">
                     @foreach (var item in Model.Messages)
                     {
-                        <li>
-                            @Html.DisplayFor(modelItem => item.Text)
-                        </li>
+                        if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "204a0130-2b28-468d-8630-440b4897d753") != null)
+                        {
+                            //manager
+                            <li>
+                                <div class="toast fade show">
 
+                                    <div class="toast-header">
+                                        <img width="15" height="15" src="~/Content/img/manager-logo.png" />
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="toast-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
+                                </div>Ц
+                            </li>
+                        }
+                        else if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "f1573978-1f60-4090-9c9c-d2200d8bee48") != null)
+                        {
+                            //admin
+                            <li>
+                                <div class="toast fade show">
+
+                                    <div class="toast-header">
+                                        <img width="15" height="15" src="~/Content/img/admin-logo.png" />
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="toast-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="toast fade show">
+
+                                    <div class="toast-header">
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="toast-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
+                                </div>
+                            </li>
+                        }
                     }
                 </ul>
                 @if (Request.IsAuthenticated)
                 {
-                    <input type="text" id="message" />
-                    <input type="button" id="sendmessage" value="Send" />
+                    <input type="text" class="form-control form-control-plaintext " id="message" />
+                    <input type="button" class="btn btn-light align-self-end " id="sendmessage" value="Отправить" />
                     <input type="hidden" id="displayname" />
-                }
-                Страница @(Model.Messages.PageCount < Model.Messages.PageNumber ? 0 : Model.Messages.PageNumber) из @Model.Messages.PageCount
 
-                @Html.PagedListPager(Model.Messages, page => Url.Action("Index", new { page }))
+                }
+                <div class="flex-fill justify-content-center">
+                    Страница @(Model.Messages.PageCount < Model.Messages.PageNumber ? 0 : Model.Messages.PageNumber) из @Model.Messages.PageCount
+                    <nav class="pagination-lg ">
+                        @Html.PagedListPager(Model.Messages, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+                              {
+                                    ContainerDivClasses = new string[] { "pagination" },
+                                    LiElementClasses = new string[] { "page-item" }
+                              })
+                    </nav>
+                </div>
             </div>
             @section scripts {
                 <!--Script references. -->
@@ -61,13 +111,18 @@
                         // Create a function that the hub can call back to display messages.
                         chat.client.addNewMessageToPage = function (name, message) {
                             // Add the message to the page.
-                            $('#discussion').append('<li><strong>' + htmlEncode(name)
-                                + '</strong>: ' + htmlEncode(message) + '</li>');
+                            $('#discussion').append('<li class = "toast fade show list-group-numbered"><div class ="toast-header">' + htmlEncode(name)
+                                + '</div> ' + '<div class ="toast-body">' + htmlEncode(message) + '</div> ' + '</li>');
                         };
                         chat.client.addMenegerMessageToPage = function (name, message) {
                             // Add the message to the page.
-                            $('#discussion').append('<li class = "toast fade show"><div class ="toast-header">' + htmlEncode(name)
-                                + '</div>: ' + '<div class ="toast-body">' + htmlEncode(message) + '</div>: ' + '</li>');
+                            $('#discussion').append('<li class = "toast fade show list-group-numbered"><div class ="toast-header">' + '<img width="20" height="20" src="~/Content/img/manager-logo.png" />' + htmlEncode(name)
+                                + '</div> ' + '<div class ="toast-body">' + htmlEncode(message) + '</div> ' + '</li>');
+                        };
+                        chat.client.addAdminMessageToPage = function (name, message) {
+                            // Add the message to the page.
+                            $('#discussion').append('<li class = "toast fade show list-group-numbered"><div class ="toast-header">' + '<img width="20" height="20" src="~/Content/img/admin-logo.png" />' + htmlEncode(name)
+                                + '</div> ' + '<div class ="toast-body">' + htmlEncode(message) + '</div> ' + '</li>');
                         };
                         // Get the user name and store it to prepend to messages.
                         $('#displayname').val();
@@ -92,6 +147,22 @@
             }
         </div>
         <div class="col-6 col-md-4">
+            <div class="mt-sm-3">
+                @foreach (var channel in Model.Channels)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            Популярное обсуждение
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>@channel.Name</p>
+                                <footer class="blockquote-footer">@channel.Followers подпищиков сейчас <cite title="Source Title"></cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
