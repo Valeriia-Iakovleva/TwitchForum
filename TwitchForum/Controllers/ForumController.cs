@@ -3,15 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TwitchForum.BLL.Services.Interfaces;
+using TwitchForum.DAL.Models;
 
 namespace TwitchForum.Controllers
 {
     public class ForumController : Controller
     {
+        private readonly IForumService _forumService;
+
+        public ForumController(IForumService forumService)
+        {
+            _forumService = forumService;
+        }
+
         // GET: Forum
         public ActionResult Index()
         {
-            return View();
+            return View(_forumService.GetAll());
+        }
+
+        public ActionResult Index(Channel chennal)
+        {
+            return View(_forumService.SearchByChannel(chennal));
+        }
+
+        public ActionResult Search(string words)
+        {
+            return View(_forumService.Search(words));
         }
 
         // GET: Forum/Details/5

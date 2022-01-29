@@ -10,9 +10,16 @@ namespace TwitchForum.DAL.Repositories
 {
     public class DiscussionRepository : IDiscussionRepository
     {
+        private readonly ForumContext _forumContext;
+
+        public DiscussionRepository(ForumContext forumContext)
+        {
+            _forumContext = forumContext;
+        }
+
         public Discussion Add(Discussion item)
         {
-            throw new NotImplementedException();
+            return _forumContext.Discussions.Add(item);
         }
 
         public Task<bool> Delete(Discussion item)
@@ -22,7 +29,7 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Discussion> GetAll()
         {
-            throw new NotImplementedException();
+            return _forumContext.Discussions.ToList();
         }
 
         public Task<Discussion> GetById(int id)
@@ -33,6 +40,16 @@ namespace TwitchForum.DAL.Repositories
         public Task<IEnumerable<Discussion>> GetN(int n)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Discussion> Search(string words)
+        {
+            return _forumContext.Discussions.Where(x => x.Title.ToLower().Contains(words.ToLower()) || x.Text.Contains(words.ToLower()) || x.Channel.Name.Contains(words.ToLower()));
+        }
+
+        public IEnumerable<Discussion> SearchforChannel(Channel channel)
+        {
+            return _forumContext.Discussions.Where(x => x.Channel == channel);
         }
 
         public Discussion Update(Discussion item)

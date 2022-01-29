@@ -9,5 +9,8 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 {
     public interface IDiscussionRepository : IRepository<Discussion>
     {
+        IEnumerable<Discussion> Search(string words);
+
+        IEnumerable<Discussion> SearchforChannel(Channel channel);
     }
 }

@@ -389,10 +389,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Main\SendMessege.cshtml" />
+    <Content Include="Views\Forum\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Forum\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
