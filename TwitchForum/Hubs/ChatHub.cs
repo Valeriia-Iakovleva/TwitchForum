@@ -32,18 +32,20 @@ namespace TwitchForum.Hubs
 
         public void Send(string name, string message)
         {
+            var ser = userService;
+            var user = userService.GetByName(name);
+            messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
             // Call the addNewMessageToPage method to update clients.
             if (Context.User.IsInRole("user"))
                 Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);
             else
                 Clients.All.addMenegerMessageToPage(Context.User.Identity.Name, message);
-            SaveMessege(Context.User.Identity.Name, message);
+
+            //messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
         }
 
         private async void SaveMessege(string name, string message)
         {
-            var user = await userService.GetByName(name);
-            await messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
         }
     }
 }

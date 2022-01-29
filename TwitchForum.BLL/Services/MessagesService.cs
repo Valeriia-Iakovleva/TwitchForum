@@ -39,9 +39,14 @@ namespace TwitchForum.BLL.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Message> GetAll()
+        public async Task<IEnumerable<Message>> GetAll()
         {
-            return _uoW.MessagesRepository.GetAll();
+            var messanges = _uoW.MessagesRepository.GetAll();
+            foreach (var massage in messanges)
+            {
+                massage.Sender = await _uoW.UserRepository.GetById(massage.UserId);
+            }
+            return messanges;
         }
 
         public Message GetById(int Id)

@@ -9,11 +9,11 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> GetByName(string name);
+        User GetByName(string name);
 
         Task<IEnumerable<User>> GetN(int n);
 
-        Task<User> GetById(int id);
+        Task<User> GetById(string id);
 
         User Add(User item);
 

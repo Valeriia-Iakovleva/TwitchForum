@@ -173,6 +173,10 @@
     <Compile Include="Migrations\202201261426330_newInitial.Designer.cs">
       <DependentUpon>202201261426330_newInitial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201290945314_update.cs" />
+    <Compile Include="Migrations\202201290945314_update.Designer.cs">
+      <DependentUpon>202201290945314_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Channel.cs" />
@@ -212,6 +216,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202201261426330_newInitial.resx">
       <DependentUpon>202201261426330_newInitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201290945314_update.resx">
+      <DependentUpon>202201290945314_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

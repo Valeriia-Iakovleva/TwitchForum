@@ -43,9 +43,9 @@ namespace TwitchForum.BLL.Services
             throw new NotImplementedException();
         }
 
-        public async Task<User> GetByName(string name)
+        public User GetByName(string name)
         {
-            return await _uoW.UserRepository.GetByName(name);
+            return _uoW.UserRepository.GetByName(name);
         }
 
         public IEnumerable<User> GetN(int n)

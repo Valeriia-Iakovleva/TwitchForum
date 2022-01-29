@@ -9,7 +9,7 @@ namespace TwitchForum.BLL.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<User> GetByName(string name);
+        User GetByName(string name);
 
         IEnumerable<User> GetAll();
 

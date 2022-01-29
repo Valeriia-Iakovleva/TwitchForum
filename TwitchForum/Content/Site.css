@@ -53,4 +53,8 @@ textarea {
 #discussion {
 }
 
-    #discussion .MenegerMessage
+.chat-area {
+    background-color: rgba(76,76,79,0.6);
+    border-radius: 2em;
+    margin-top: 1em;
+}

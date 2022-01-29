@@ -28,14 +28,14 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetById(int id)
+        public async Task<User> GetById(string id)
         {
-            throw new NotImplementedException();
+            return await _forumContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<User> GetByName(string name)
+        public User GetByName(string name)
         {
-            return await _forumContext.Users.FirstOrDefaultAsync(u => u.UserName == name);
+            return _forumContext.Users.FirstOrDefault(u => u.UserName == name);
         }
 
         public Task<IEnumerable<User>> GetN(int n)
