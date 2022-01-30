@@ -28,9 +28,9 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<User> GetById(string id)
+        public User GetById(string id)
         {
-            return await _forumContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return _forumContext.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public User GetByName(string name)

@@ -19,14 +19,14 @@ namespace TwitchForum.BLL.Services
             _uoW = unitOfWork;
         }
 
-        public async Task<Message> Add(Message message)
+        public Message Add(Message message)
         {
             if (message == null)
                 throw new ArgumentNullException("message", "Message to add wasnt found!");
 
             _uoW.MessagesRepository.Add(message);
 
-            return await _uoW.MessagesRepository.GetById(message.Id);
+            return _uoW.MessagesRepository.GetById(message.Id);
         }
 
         public bool Delete(Message message)
@@ -39,12 +39,12 @@ namespace TwitchForum.BLL.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Message>> GetAll()
+        public IEnumerable<Message> GetAll()
         {
             var messanges = _uoW.MessagesRepository.GetAll();
             foreach (var massage in messanges)
             {
-                massage.Sender = await _uoW.UserRepository.GetById(massage.UserId);
+                massage.Sender = _uoW.UserRepository.GetById(massage.UserId);
             }
             return messanges;
         }

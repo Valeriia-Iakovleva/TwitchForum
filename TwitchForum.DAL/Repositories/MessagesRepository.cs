@@ -27,13 +27,13 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Messages.Attach(item);
         }
 
-        public async Task<bool> Delete(Message item)
+        public bool Delete(Message item)
         {
             _forumContext.Messages.Remove(item);
 
-            await _forumContext.SaveChangesAsync();
+            _forumContext.SaveChanges();
 
-            return await _forumContext.Messages.FindAsync(item) == null;
+            return _forumContext.Messages.Find(item) == null;
         }
 
         public IEnumerable<Message> GetAll()
@@ -41,7 +41,7 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Messages.ToList();
         }
 
-        public Task<Message> GetById(int id)
+        public Message GetById(int id)
         {
             throw new NotImplementedException();
         }

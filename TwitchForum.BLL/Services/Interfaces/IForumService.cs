@@ -17,7 +17,9 @@ namespace TwitchForum.BLL.Services.Interfaces
 
         IEnumerable<Discussion> SearchByChannel(Channel channel);
 
-        Task<Discussion> GetById(int Id);
+        IEnumerable<Discussion> SearchByChannelId(int id);
+
+        Discussion GetById(int Id);
 
         Discussion Get(Discussion discussion);
 

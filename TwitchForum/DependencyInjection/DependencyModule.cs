@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.SignalR;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using TwitchForum.BLL.Hub;
 using TwitchForum.BLL.Services;
 using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL;
@@ -30,9 +32,11 @@ namespace TwitchForum.DependencyInjection
             Bind<IChannelRepository>().To<ChannelRepository>();
             Bind<IDiscussionRepository>().To<DiscussionRepository>();
             Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<IUserService>().To<UserService>();
             Bind<IMessagesService>().To<MessagesService>();
             Bind<IChannelService>().To<ChannelService>().InTransientScope();
-            Bind<IUserService>().To<UserService>().InTransientScope();
+            Bind<IForumService>().To<ForumService>();
+
             //Bind<IUserService>().To<UserService>().WithPropertyValue("userService", new UnitOfWork());
         }
     }

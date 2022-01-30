@@ -58,3 +58,7 @@ textarea {
     border-radius: 2em;
     margin-top: 1em;
 }
+
+.forum-body {
+    background-color: #37274b;
+}

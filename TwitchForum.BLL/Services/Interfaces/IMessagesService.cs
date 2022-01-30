@@ -9,7 +9,7 @@ namespace TwitchForum.BLL.Services.Interfaces
 {
     public interface IMessagesService
     {
-        Task<IEnumerable<Message>> GetAll();
+        IEnumerable<Message> GetAll();
 
         IEnumerable<Message> GetN(int n);
 
@@ -17,7 +17,7 @@ namespace TwitchForum.BLL.Services.Interfaces
 
         Message Get(Message message);
 
-        Task<Message> Add(Message message);
+        Message Add(Message message);
 
         bool Delete(Message message);
     }

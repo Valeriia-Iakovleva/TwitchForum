@@ -17,9 +17,9 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li>@Html.ActionLink("Home", "Main", "Index", new { @class = "nav-link px-2 text-secondary" })</li>
-                    <li>@Html.ActionLink("Forum", "Main", "Index", new { @class = "nav-link px-2 text-white" })</li>
-                    <li>@Html.ActionLink("Home", "Main", "Index", new { @class = "nav-link px-2 text-white" })</li>
+                    <li>@Html.ActionLink("Home", "Index", "Main", new { id = 1 }, new { @class = "nav-link px-2 text-secondary" })</li>
+                    <li>@Html.ActionLink("Forum", "Index", "Forum", new { id = 1 }, new { @class = "nav-link px-2 text-white" })</li>
+                    <li>@Html.ActionLink("Games", "Index", "Forum", new { @class = "nav-link px-2 text-white" })</li>
                 </ul>
 
                 @Html.Partial("_LoginPartial")

@@ -12,11 +12,11 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 
         IEnumerable<T> GetN(int n);
 
-        Task<T> GetById(int id);
+        T GetById(int id);
 
         T Add(T item);
 
-        Task<bool> Delete(T item);
+        bool Delete(T item);
 
         T Update(T item);
     }

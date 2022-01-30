@@ -43,11 +43,11 @@ namespace TwitchForum.Controllers
         }
 
         // GET: Main
-        public async Task<ActionResult> Index(int? page)
+        public ActionResult Index(int? page)
         {
             var currentUser = this.User;
             var mainViewModel = new MainViewModel();
-            var massages = await _messageService.GetAll();
+            var massages = _messageService.GetAll();
             int pageNumber = (page ?? 1);
             mainViewModel.Messages = massages.ToPagedList(pageNumber, mainViewModel.NumberfMesseges);
             mainViewModel.Channels = _channelService.GetN(5).ToList();
@@ -60,11 +60,11 @@ namespace TwitchForum.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Send(Message m)
+        public ActionResult Send(Message m)
         {
             var user = _userService.GetByName(User.Identity.Name);
             Message message = new Message() { Text = m.Text, Sender = user };
-            await _messageService.Add(message);
+            _messageService.Add(message);
             return Redirect("/Main/Index");
         }
     }

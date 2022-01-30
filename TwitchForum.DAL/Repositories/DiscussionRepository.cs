@@ -22,7 +22,7 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Discussions.Add(item);
         }
 
-        public Task<bool> Delete(Discussion item)
+        public bool Delete(Discussion item)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Discussions.ToList();
         }
 
-        public Task<Discussion> GetById(int id)
+        public Discussion GetById(int id)
         {
             throw new NotImplementedException();
         }

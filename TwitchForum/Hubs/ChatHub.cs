@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TwitchForum.BLL.Services;
 using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL;
@@ -14,11 +15,47 @@ namespace TwitchForum.Hubs
 {
     public class ChatHub : Hub
     {
-        [Inject]
-        public IUserService userService { get; set; }
+        private IUserService _userService;
 
-        [Inject]
-        public IMessagesService messagesService { get; set; }
+        private IMessagesService _messagesService;
+
+        public IUserService userService
+
+        {
+            get
+            {
+                if (_userService == null)
+                {
+                    _userService = DependencyResolver.Current.GetService<IUserService>();
+                    return _userService;
+                }
+                else
+                    return _userService;
+            }
+            set
+            {
+                _userService = value;
+            }
+        }
+
+        public IMessagesService messagesService
+
+        {
+            get
+            {
+                if (_messagesService == null)
+                {
+                    _messagesService = DependencyResolver.Current.GetService<IMessagesService>();
+                    return _messagesService;
+                }
+                else
+                    return _messagesService;
+            }
+            set
+            {
+                _messagesService = value;
+            }
+        }
 
         public ChatHub()
         {

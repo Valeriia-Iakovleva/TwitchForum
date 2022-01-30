@@ -10,22 +10,31 @@ namespace TwitchForum.DAL.Repositories
 {
     public class AnswerRepository : IAnswerRepository
     {
-        public Answer Add(Answer item)
+        private readonly ForumContext _forumContext;
+
+        public AnswerRepository(ForumContext forumContext)
         {
-            throw new NotImplementedException();
+            _forumContext = forumContext;
         }
 
-        public Task<bool> Delete(Answer item)
+        public Answer Add(Answer item)
         {
-            throw new NotImplementedException();
+            _forumContext.Answers.Add(item);
+            return _forumContext.Answers.FirstOrDefault(x => x == item);
+        }
+
+        public bool Delete(Answer item)
+        {
+            _forumContext.Answers.Remove(item);
+            return _forumContext.Answers.Contains(item);
         }
 
         public IEnumerable<Answer> GetAll()
         {
-            throw new NotImplementedException();
+            return _forumContext.Answers;
         }
 
-        public Task<Answer> GetById(int id)
+        public Answer GetById(int id)
         {
             throw new NotImplementedException();
         }

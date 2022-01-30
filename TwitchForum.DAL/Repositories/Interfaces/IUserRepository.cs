@@ -13,7 +13,7 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 
         Task<IEnumerable<User>> GetN(int n);
 
-        Task<User> GetById(string id);
+        User GetById(string id);
 
         User Add(User item);
 

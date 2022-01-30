@@ -23,9 +23,9 @@ namespace TwitchForum.Controllers
             return View(_forumService.GetAll());
         }
 
-        public ActionResult Index(Channel chennal)
+        public ActionResult Chenals(int id)
         {
-            return View(_forumService.SearchByChannel(chennal));
+            return View(_forumService.SearchByChannelId(id));
         }
 
         public ActionResult Search(string words)
@@ -36,7 +36,7 @@ namespace TwitchForum.Controllers
         // GET: Forum/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_forumService.GetById(id));
         }
 
         // GET: Forum/Create
@@ -47,12 +47,12 @@ namespace TwitchForum.Controllers
 
         // POST: Forum/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Discussion discussion)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                _forumService.Add(discussion);
                 return RedirectToAction("Index");
             }
             catch

@@ -22,19 +22,20 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Delete(Channel item)
+        public bool Delete(Channel item)
         {
-            throw new NotImplementedException();
+            _forumContext.Channels.Remove(item);
+            return _forumContext.Channels.Contains(item);
         }
 
         public IEnumerable<Channel> GetAll()
         {
-            throw new NotImplementedException();
+            return _forumContext.Channels.ToList();
         }
 
-        public Task<Channel> GetById(int id)
+        public Channel GetById(int id)
         {
-            throw new NotImplementedException();
+            return _forumContext.Channels.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Channel> GetN(int n)
