@@ -29,27 +29,27 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Answers.Contains(item);
         }
 
+        public Answer Get(Answer item)
+        {
+            return _forumContext.Answers.FirstOrDefault(x => x == item);
+        }
+
         public IEnumerable<Answer> GetAll()
         {
-            return _forumContext.Answers;
+            return _forumContext.Answers.ToList();
         }
 
         public Answer GetById(int id)
         {
-            throw new NotImplementedException();
+            return _forumContext.Answers.FirstOrDefault(x => x.Id == id);
         }
 
-        public Task<IEnumerable<Answer>> GetN(int n)
+        public IEnumerable<Answer> GetN(int n)
         {
-            throw new NotImplementedException();
+            return _forumContext.Answers.Take(n);
         }
 
         public Answer Update(Answer item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Answer> IRepository<Answer>.GetN(int n)
         {
             throw new NotImplementedException();
         }

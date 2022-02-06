@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<TwitchForum.DAL.Models.Discussion>
-
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body class="forum-body">
     <div class="body-content container">
@@ -18,30 +16,34 @@
                 @Html.ActionLink("Create New", "Create")
             </p>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row blog-row">
+            <div class="col blog-col">
                 @foreach (var item in Model)
                 {
-                    <div class="blog-post">
-                        <div class=" blog-post-title">
-                            @Html.DisplayFor(modelItem => item.Title)
+                    <a class="post-blog-chose" href=@Html.Action("Details", new { id= item.Id})>
+                        <div class="blog-post">
+                            <div class=" blog-post-title">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </div>
+                            <div class="blog-post-meta">
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.PublicationTime)
+                                    about a @item.Channel.Name channel
+                                    by @item.User.UserName
+                                </p>
+                            </div>
+                            <div class="blog-post-body">
+                            </div>
+                            <p>item.Text.Substring(0, 200)</p>
+
+                            <div class="blog-bottom">
+                                <a>Up</a>
+                                <a>Down</a>
+                                @Html.ActionLink("Посмотреть все", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Ответить", "Answer");
+                            </div>
                         </div>
-                        <div class="blog-post-meta">
-                            <p>
-                                @Html.DisplayFor(modelItem => item.PublicationTime)
-                                about a @item.Channel.Name channel
-                                by @item.User.UserName
-                            </p>
-                        </div>
-                        <div class="blog-post-body">
-                        </div>
-                        @Html.DisplayFor(modelItem => item.Text.Substring(0, 200))
-                        <div>
-                            <a>Up</a>
-                            <a>Down</a>
-                            @Html.ActionLink("Посмотреть все", "Details", new { id = item.Id }) |
-                        </div>
-                    </div>
+                    </a>
                 }
             </div>
         </div>

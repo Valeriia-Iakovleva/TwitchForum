@@ -62,3 +62,59 @@ textarea {
 .forum-body {
     background-color: #37274b;
 }
+
+/*<--------Forum----------->*/
+.forum-new-button {
+    color: #3e3e3e;
+    background-color: white;
+    text-decoration: solid;
+    border-radius: 20px;
+    border-color: transparent;
+}
+
+.blog-row {
+    background-color: #7447AB;
+    margin-top: 1em;
+}
+
+.blog-col {
+    padding: 5px;
+}
+
+.blog-post {
+    border: 2px #391655;
+    background-color: rgba(160,160,160,0.3);
+}
+
+.blog-post-title {
+    color: aliceblue;
+    text-decoration: solid;
+    font-size: 20px;
+}
+
+.blog-post-meta {
+    color: #3E3E3E;
+    font-size: 12px;
+}
+
+.blog-post-body {
+    display: flex;
+}
+
+    .blog-post-body p {
+        font-size: 14px;
+        color: white;
+    }
+
+    .blog-post-body a {
+        color: white;
+    }
+
+.blog-bottom {
+}
+
+.blog-post-answers {
+}
+
+.blog-answer {
+}

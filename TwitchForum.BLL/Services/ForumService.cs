@@ -20,7 +20,8 @@ namespace TwitchForum.BLL.Services
 
         public Discussion Add(Discussion discussion)
         {
-            throw new NotImplementedException();
+            _uoW.DiscussionRepository.Add(discussion);
+            return _uoW.DiscussionRepository.Get(discussion);
         }
 
         public bool Delete(Discussion discussion)

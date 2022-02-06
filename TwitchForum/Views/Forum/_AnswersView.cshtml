@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TwitchForum.DAL.Models.Answer>
+@Html.BeginForm("Send", "Forum", FormMethod.Post){
+<div class="send">
+    <textarea></textarea>
+</div>
+<div> <button type="submit" class="bg-warning"></button></div>
+<div class="Answers-box">
+    @foreach (var item in Model)
+    {
+        if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "204a0130-2b28-468d-8630-440b4897d753") != null)
+        {
+            //manager
+            <li>
+                <div class="toast fade show mb-sm-1">
+
+                    <div class="toast-header">
+                        <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/m.png" />
+                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                    </div>
+                    <div class="toast-body">
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </div>
+                </div>
+            </li>
+        }
+        else if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "f1573978-1f60-4090-9c9c-d2200d8bee48") != null)
+        {
+            //admin
+            <li>
+                <div class="toast fade show mb-sm-1">
+
+                    <div class="toast-header">
+                        <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/a.png" />
+                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                    </div>
+                    <div class="toast-body">
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </div>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li>
+                <div class="toast fade show mb-sm-1">
+
+                    <div class="toast-header">
+                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                    </div>
+                    <div class="toast-body">
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </div>
+                </div>
+            </li>
+        }
+    }
+</div>
+
+}

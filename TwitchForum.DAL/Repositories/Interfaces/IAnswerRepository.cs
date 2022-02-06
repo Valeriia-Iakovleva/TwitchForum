@@ -9,5 +9,6 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 {
     public interface IAnswerRepository : IRepository<Answer>
     {
+        IEnumerable<Answer> GetN(int n);
     }
 }

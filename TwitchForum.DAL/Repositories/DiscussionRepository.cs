@@ -19,12 +19,20 @@ namespace TwitchForum.DAL.Repositories
 
         public Discussion Add(Discussion item)
         {
-            return _forumContext.Discussions.Add(item);
+            _forumContext.Discussions.Add(item);
+
+            _forumContext.SaveChanges();
+
+            return _forumContext.Discussions.Find(item);
         }
 
         public bool Delete(Discussion item)
         {
-            throw new NotImplementedException();
+            _forumContext.Discussions.Remove(item);
+
+            _forumContext.SaveChanges();
+
+            return _forumContext.Discussions.FirstOrDefault(x => x.Id == item.Id) == null;
         }
 
         public IEnumerable<Discussion> GetAll()
@@ -34,12 +42,17 @@ namespace TwitchForum.DAL.Repositories
 
         public Discussion GetById(int id)
         {
-            throw new NotImplementedException();
+            return _forumContext.Discussions.FirstOrDefault(x => x.Id == id);
         }
 
-        public Task<IEnumerable<Discussion>> GetN(int n)
+        public Discussion Get(Discussion discussion)
         {
-            throw new NotImplementedException();
+            return _forumContext.Discussions.Find(discussion);
+        }
+
+        public IEnumerable<Discussion> GetN(int n)
+        {
+            return _forumContext.Discussions.Take(n);
         }
 
         public IEnumerable<Discussion> Search(string words)
@@ -53,11 +66,6 @@ namespace TwitchForum.DAL.Repositories
         }
 
         public Discussion Update(Discussion item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Discussion> IRepository<Discussion>.GetN(int n)
         {
             throw new NotImplementedException();
         }

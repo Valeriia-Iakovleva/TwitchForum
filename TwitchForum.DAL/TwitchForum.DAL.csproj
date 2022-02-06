@@ -177,6 +177,10 @@
     <Compile Include="Migrations\202201290945314_update.Designer.cs">
       <DependentUpon>202201290945314_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201310755099_fixDiscussionUserId.cs" />
+    <Compile Include="Migrations\202201310755099_fixDiscussionUserId.Designer.cs">
+      <DependentUpon>202201310755099_fixDiscussionUserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Channel.cs" />
@@ -219,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201290945314_update.resx">
       <DependentUpon>202201290945314_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201310755099_fixDiscussionUserId.resx">
+      <DependentUpon>202201310755099_fixDiscussionUserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

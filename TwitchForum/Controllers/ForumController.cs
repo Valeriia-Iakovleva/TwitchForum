@@ -11,26 +11,29 @@ namespace TwitchForum.Controllers
     public class ForumController : Controller
     {
         private readonly IForumService _forumService;
+        private readonly IAnswerService _answerService;
 
-        public ForumController(IForumService forumService)
+        public ForumController(IForumService forumService, IAnswerService answerService)
         {
             _forumService = forumService;
+            _answerService = answerService;
         }
 
         // GET: Forum
         public ActionResult Index()
         {
-            return View(_forumService.GetAll());
+            ViewBag.Title = "Twitch Forum";
+            return View(_forumService.GetAll().OrderBy(x => x.Rating).ThenBy(x => x.PublicationTime));
         }
 
         public ActionResult Chenals(int id)
         {
-            return View(_forumService.SearchByChannelId(id));
+            return View(_forumService.SearchByChannelId(id).OrderBy(x => x.Rating));
         }
 
         public ActionResult Search(string words)
         {
-            return View(_forumService.Search(words));
+            return View(_forumService.Search(words).OrderBy(x => x.Rating));
         }
 
         // GET: Forum/Details/5
@@ -42,7 +45,12 @@ namespace TwitchForum.Controllers
         // GET: Forum/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Discussion());
+        }
+
+        public ActionResult Answer()
+        {
+            return PartialView();
         }
 
         // POST: Forum/Create

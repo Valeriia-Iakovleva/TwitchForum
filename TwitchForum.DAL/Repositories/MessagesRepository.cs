@@ -36,6 +36,11 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Messages.Find(item) == null;
         }
 
+        public Message Get(Message item)
+        {
+            return _forumContext.Messages.Attach(item);
+        }
+
         public IEnumerable<Message> GetAll()
         {
             return _forumContext.Messages.ToList();
@@ -43,7 +48,7 @@ namespace TwitchForum.DAL.Repositories
 
         public Message GetById(int id)
         {
-            throw new NotImplementedException();
+            return _forumContext.Messages.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Message> GetN(int n)

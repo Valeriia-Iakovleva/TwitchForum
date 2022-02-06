@@ -19,7 +19,11 @@ namespace TwitchForum.DAL.Repositories
 
         public Channel Add(Channel item)
         {
-            throw new NotImplementedException();
+            _forumContext.Channels.Add(item);
+
+            _forumContext.SaveChanges();
+
+            return _forumContext.Channels.FirstOrDefault(x => x == item);
         }
 
         public bool Delete(Channel item)
@@ -41,6 +45,11 @@ namespace TwitchForum.DAL.Repositories
         public IEnumerable<Channel> GetN(int n)
         {
             return _forumContext.Channels.Take(n);
+        }
+
+        public Channel Get(Channel channel)
+        {
+            return _forumContext.Channels.Find(channel);
         }
 
         public Channel Update(Channel item)

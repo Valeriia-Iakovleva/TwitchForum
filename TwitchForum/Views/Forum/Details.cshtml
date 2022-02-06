@@ -1,0 +1,40 @@
+﻿@model TwitchForum.DAL.Models.Discussion
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="discussion">
+            <div class="discussion-head">
+                <div class="col-8">
+                    <div> <p>@Model.Title</p></div>
+                    <div class="blog-post-meta">Запощено @Model.User.UserName в @Model.PublicationTime теме канала: @Model.Channel?.Name ??"-" </div>
+                </div>
+                <div class="col-4">
+                    @if (User.Identity.Name == Model.User.UserName || User.IsInRole("admin") || User.IsInRole("moderator"))
+                    {
+                        <a href="@Html.Action("Delete", new { id= Model.Id})">Удалить</a>
+                    }
+                    @if (User.Identity.Name == Model.User.UserName)
+                    {
+                        <a href="@Html.Action("Edit", new { id= Model.Id})">Изменить</a>
+                    }
+                </div>
+            </div>
+            <div class="discussion-body">
+                <p>@Model.Text</p>
+            </div>
+            <div>@Html.RenderAction("Answer")</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -14,6 +14,8 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 
         T GetById(int id);
 
+        T Get(T item);
+
         T Add(T item);
 
         bool Delete(T item);
