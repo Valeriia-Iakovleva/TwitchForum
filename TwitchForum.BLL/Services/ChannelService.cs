@@ -30,17 +30,17 @@ namespace TwitchForum.BLL.Services
 
         public Channel Get(Channel channel)
         {
-            throw new NotImplementedException();
+            return _uoW.ChannelRepository.Get(channel);
         }
 
         public IEnumerable<Channel> GetAll()
         {
-            throw new NotImplementedException();
+            return _uoW.ChannelRepository.GetAll();
         }
 
         public Channel GetById(int Id)
         {
-            throw new NotImplementedException();
+            return _uoW.ChannelRepository.GetById(Id);
         }
 
         public IEnumerable<Channel> GetN(int n)

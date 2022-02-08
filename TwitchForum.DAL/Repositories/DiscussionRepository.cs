@@ -37,37 +37,70 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Discussion> GetAll()
         {
-            return _forumContext.Discussions.ToList();
+            var discussion = _forumContext.Discussions;
+
+            Construct(discussion.ToArray());
+
+            return discussion;
         }
 
         public Discussion GetById(int id)
         {
-            return _forumContext.Discussions.FirstOrDefault(x => x.Id == id);
+            var discuss = _forumContext.Discussions.FirstOrDefault(x => x.Id == id);
+
+            Construct(discuss);
+
+            return discuss;
         }
 
         public Discussion Get(Discussion discussion)
         {
-            return _forumContext.Discussions.Find(discussion);
+            var discuss = _forumContext.Discussions.Find(discussion);
+
+            Construct(discuss);
+
+            return discuss;
         }
 
         public IEnumerable<Discussion> GetN(int n)
         {
-            return _forumContext.Discussions.Take(n);
+            var discuss = _forumContext.Discussions.Take(n);
+
+            Construct(discuss.ToArray());
+
+            return discuss;
         }
 
         public IEnumerable<Discussion> Search(string words)
         {
-            return _forumContext.Discussions.Where(x => x.Title.ToLower().Contains(words.ToLower()) || x.Text.Contains(words.ToLower()) || x.Channel.Name.Contains(words.ToLower()));
+            var discuss = _forumContext.Discussions.Where(x => x.Title.ToLower().Contains(words.ToLower()) || x.Text.Contains(words.ToLower()) || x.Channel.Name.Contains(words.ToLower()));
+
+            Construct(discuss.ToArray());
+
+            return discuss;
         }
 
         public IEnumerable<Discussion> SearchforChannel(Channel channel)
         {
-            return _forumContext.Discussions.Where(x => x.Channel == channel);
+            var discuss = _forumContext.Discussions.Where(x => x.Channel == channel);
+
+            Construct(discuss.ToArray());
+
+            return discuss;
         }
 
         public Discussion Update(Discussion item)
         {
             throw new NotImplementedException();
+        }
+
+        private void Construct(params Discussion[] discussions)
+        {
+            foreach (var item in discussions)
+            {
+                item.Channel = _forumContext.Channels.FirstOrDefault(x => x.Id == item.ChannelId);
+                item.User = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
+            }
         }
     }
 }

@@ -20,27 +20,30 @@
             <div class="col blog-col">
                 @foreach (var item in Model)
                 {
-                    <a class="post-blog-chose" href=@Html.Action("Details", new { id= item.Id})>
+                    <a class="post-blog-chose" href=@Url.Action("Details", new { id= item.Id})>
                         <div class="blog-post">
                             <div class=" blog-post-title">
-                                @Html.DisplayFor(modelItem => item.Title)
+                                @item.Title
+                                @*@Html.DisplayFor(modelItem => item.Title)*@
                             </div>
                             <div class="blog-post-meta">
                                 <p>
-                                    @Html.DisplayFor(modelItem => item.PublicationTime)
+                                    @item.PublicationTime
                                     about a @item.Channel.Name channel
                                     by @item.User.UserName
                                 </p>
                             </div>
                             <div class="blog-post-body">
+                                <p>@item.Text.Substring(0, 200)</p>
                             </div>
-                            <p>item.Text.Substring(0, 200)</p>
 
                             <div class="blog-bottom">
-                                <a>Up</a>
-                                <a>Down</a>
-                                @Html.ActionLink("Посмотреть все", "Details", new { id = item.Id }) |
-                                @Html.ActionLink("Ответить", "Answer");
+                                <div class="like">
+                                    <a>Up</a>
+                                    <a>Down</a>
+                                </div>
+
+                                <div class="details-link">|@Html.ActionLink("Посмотреть все", "Details", new { id = item.Id }) </div>
                             </div>
                         </div>
                     </a>

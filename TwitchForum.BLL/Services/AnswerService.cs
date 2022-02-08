@@ -26,12 +26,13 @@ namespace TwitchForum.BLL.Services
 
         public bool Delete(Answer answer)
         {
-            throw new NotImplementedException();
+            _uoW.AnswerRepository.Delete(answer);
+            return _uoW.AnswerRepository.Get(answer) == null;
         }
 
         public Answer Get(Answer answer)
         {
-            throw new NotImplementedException();
+            return _uoW.AnswerRepository.Get(answer);
         }
 
         public IEnumerable<Answer> GetAll()
@@ -39,14 +40,19 @@ namespace TwitchForum.BLL.Services
             return _uoW.AnswerRepository.GetAll();
         }
 
+        public IEnumerable<Answer> GetAllForChannel(int id)
+        {
+            return _uoW.AnswerRepository.GetAllForChannel(id);
+        }
+
         public Answer GetById(int Id)
         {
-            throw new NotImplementedException();
+            return _uoW.AnswerRepository.GetById(Id);
         }
 
         public IEnumerable<Answer> GetN(int n)
         {
-            throw new NotImplementedException();
+            return _uoW.AnswerRepository.GetN(n);
         }
     }
 }

@@ -234,12 +234,11 @@ sup {
 }
 
 a {
-    color: #0d6efd;
-    text-decoration: underline;
 }
 
     a:hover {
-        color: #0a58ca;
+        /*color: #0a58ca;*/
+        background-color: rgba(160,160,160,0.5);
     }
 
     a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -3365,9 +3364,12 @@ textarea.form-control-lg {
     }
 
 .btn-light {
-    color: #000;
+    color: dimgray;
+    text-decoration: solid;
+    text-decoration-style: solid;
     background-color: #f8f9fa;
     border-color: #f8f9fa;
+    padding: 0.35em, 0.4em!important;
 }
 
     .btn-light:hover {

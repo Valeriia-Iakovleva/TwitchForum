@@ -81,10 +81,15 @@
                 </ul>
                 @if (Request.IsAuthenticated)
                 {
-                    @*<input type="text" class="form-control form-control-plaintext " id="message" />*@
-                    <textarea class="form-control form-control-plaintext " id="message"></textarea>
-                    <input type="button" class="btn btn-light align-self-end " id="sendmessage" value="Отправить" />
-                    <input type="hidden" id="displayname" />
+                    <div class="send-message">
+                        @*<input type="text" class="form-control form-control-plaintext " id="message" />*@
+                        <textarea class="form-control form-control-plaintext " id="message"></textarea>
+                        <div class="send-btn">
+                            <input type="button" class="btn btn-light align-self-end " id="sendmessage" value="Отправить" />
+                        </div>
+
+                        <input type="hidden" id="displayname" />
+                    </div>
 
                 }
                 <div class="d-flex justify-content-center">

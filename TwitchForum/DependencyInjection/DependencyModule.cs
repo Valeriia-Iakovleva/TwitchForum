@@ -36,6 +36,9 @@ namespace TwitchForum.DependencyInjection
             Bind<IMessagesService>().To<MessagesService>();
             Bind<IChannelService>().To<ChannelService>().InTransientScope();
             Bind<IForumService>().To<ForumService>();
+            Bind<IAnswerService>().To<AnswerService>();
+            Bind<IUserService>().To<UserService>();
+            Bind<IChannelService>().To<ChannelService>();
 
             //Bind<IUserService>().To<UserService>().WithPropertyValue("userService", new UnitOfWork());
         }

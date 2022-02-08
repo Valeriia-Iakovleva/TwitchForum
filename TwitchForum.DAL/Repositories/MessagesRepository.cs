@@ -38,27 +38,51 @@ namespace TwitchForum.DAL.Repositories
 
         public Message Get(Message item)
         {
-            return _forumContext.Messages.Attach(item);
+            var message = _forumContext.Messages.Find(item);
+
+            Construct(message);
+
+            return message;
         }
 
         public IEnumerable<Message> GetAll()
         {
-            return _forumContext.Messages.ToList();
+            var messages = _forumContext.Messages;
+
+            Construct(messages.ToArray());
+
+            return messages;
         }
 
         public Message GetById(int id)
         {
-            return _forumContext.Messages.FirstOrDefault(x => x.Id == id);
+            var message = _forumContext.Messages.FirstOrDefault(x => x.Id == id);
+
+            Construct(message);
+
+            return message;
         }
 
         public IEnumerable<Message> GetN(int n)
         {
-            return _forumContext.Messages.Take(n).ToList();
+            var messages = _forumContext.Messages.Take(n);
+
+            Construct(messages.ToArray());
+
+            return messages;
         }
 
         public Message Update(Message item)
         {
             throw new NotImplementedException();
+        }
+
+        private void Construct(params Message[] messages)
+        {
+            foreach (var item in messages)
+            {
+                item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
+            }
         }
     }
 }

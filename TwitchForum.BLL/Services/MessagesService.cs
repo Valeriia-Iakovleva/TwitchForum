@@ -24,9 +24,7 @@ namespace TwitchForum.BLL.Services
             if (message == null)
                 throw new ArgumentNullException("message", "Message to add wasnt found!");
 
-            _uoW.MessagesRepository.Add(message);
-
-            return _uoW.MessagesRepository.GetById(message.Id);
+            return _uoW.MessagesRepository.Add(message); ;
         }
 
         public bool Delete(Message message)
@@ -41,12 +39,7 @@ namespace TwitchForum.BLL.Services
 
         public IEnumerable<Message> GetAll()
         {
-            var messanges = _uoW.MessagesRepository.GetAll();
-            foreach (var massage in messanges)
-            {
-                massage.Sender = _uoW.UserRepository.GetById(massage.UserId);
-            }
-            return messanges;
+            return _uoW.MessagesRepository.GetAll().ToList();
         }
 
         public Message GetById(int Id)

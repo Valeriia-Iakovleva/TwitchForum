@@ -70,8 +70,8 @@ namespace TwitchForum.Hubs
         public void Send(string name, string message)
         {
             var ser = userService;
-            var user = userService.GetByName(name);
-            messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
+            var user = userService.GetByName(Context.User.Identity.Name);
+            var mess = messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
             // Call the addNewMessageToPage method to update clients.
             if (Context.User.IsInRole("user"))
                 Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);

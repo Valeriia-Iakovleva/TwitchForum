@@ -31,27 +31,61 @@ namespace TwitchForum.DAL.Repositories
 
         public Answer Get(Answer item)
         {
-            return _forumContext.Answers.FirstOrDefault(x => x == item);
+            var answer = _forumContext.Answers.FirstOrDefault(x => x == item);
+
+            Construct(answer);
+
+            return answer;
         }
 
         public IEnumerable<Answer> GetAll()
         {
-            return _forumContext.Answers.ToList();
+            var answers = _forumContext.Answers;
+
+            Construct(answers.ToArray());
+
+            return answers;
+        }
+
+        public IEnumerable<Answer> GetAllForChannel(int id)
+        {
+            var answers = _forumContext.Answers.Where(x => x.DiscussionId == id);
+
+            Construct(answers.ToArray());
+
+            return answers;
         }
 
         public Answer GetById(int id)
         {
-            return _forumContext.Answers.FirstOrDefault(x => x.Id == id);
+            var answer = _forumContext.Answers.FirstOrDefault(x => x.Id == id);
+
+            Construct(answer);
+
+            return answer;
         }
 
         public IEnumerable<Answer> GetN(int n)
         {
-            return _forumContext.Answers.Take(n);
+            var answer = _forumContext.Answers.Take(n);
+
+            Construct(answer.ToArray());
+
+            return answer;
         }
 
         public Answer Update(Answer item)
         {
             throw new NotImplementedException();
+        }
+
+        private void Construct(params Answer[] answers)
+        {
+            foreach (var item in answers)
+            {
+                item.Discussion = _forumContext.Discussions.FirstOrDefault(x => x.Id == item.DiscussionId);
+                item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
+            }
         }
     }
 }

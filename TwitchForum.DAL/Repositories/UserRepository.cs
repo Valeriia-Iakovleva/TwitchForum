@@ -23,9 +23,11 @@ namespace TwitchForum.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Delete(User item)
+        public async Task<bool> Delete(User item)
         {
-            throw new NotImplementedException();
+            _forumContext.Users.Remove(item);
+
+            return await _forumContext.Users.FirstOrDefaultAsync(x => x == item) == null;
         }
 
         public User GetById(string id)
@@ -38,9 +40,9 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Users.FirstOrDefault(u => u.UserName == name);
         }
 
-        public Task<IEnumerable<User>> GetN(int n)
+        public IEnumerable<User> GetN(int n)
         {
-            throw new NotImplementedException();
+            return _forumContext.Users.Take(n);
         }
 
         public User Update(User item)

@@ -11,7 +11,7 @@ namespace TwitchForum.DAL.Repositories.Interfaces
     {
         User GetByName(string name);
 
-        Task<IEnumerable<User>> GetN(int n);
+        IEnumerable<User> GetN(int n);
 
         User GetById(string id);
 

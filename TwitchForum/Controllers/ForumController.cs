@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL.Models;
+using TwitchForum.Models;
 
 namespace TwitchForum.Controllers
 {
@@ -12,11 +13,15 @@ namespace TwitchForum.Controllers
     {
         private readonly IForumService _forumService;
         private readonly IAnswerService _answerService;
+        private readonly IChannelService _channelService;
+        private readonly IUserService _userService;
 
-        public ForumController(IForumService forumService, IAnswerService answerService)
+        public ForumController(IForumService forumService, IAnswerService answerService, IChannelService channelService, IUserService userService)
         {
             _forumService = forumService;
             _answerService = answerService;
+            _channelService = channelService;
+            _userService = userService;
         }
 
         // GET: Forum
@@ -39,18 +44,38 @@ namespace TwitchForum.Controllers
         // GET: Forum/Details/5
         public ActionResult Details(int id)
         {
-            return View(_forumService.GetById(id));
+            var details = new DetailsViewModel() { Answers = _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
+            return View(details);
         }
 
         // GET: Forum/Create
         public ActionResult Create()
         {
-            return View(new Discussion());
+            var s = ;
+            var viewModel = new CreateDiscussionViewModel() { Channels = new SelectList(_channelService.GetAll(), "Id", "Name"), Discussion = new Discussion() };
+            return View(viewModel);
         }
 
-        public ActionResult Answer()
+        [HttpPost]
+        public ActionResult Answer(CreateDiscussionViewModel viewModel)
         {
-            return PartialView();
+            try
+            {
+                var answer = new Answer()
+                {
+                    Discussion = viewModel.Discussion,
+                    DiscussionId = viewModel.Discussion.Id,
+                    Sender = _userService.GetByName(viewModel.Name),
+                    Text = viewModel.Discussion.Text,
+                    UserId = _userService.GetByName(viewModel.Name).Id
+                };
+                _answerService.Add(answer);
+                return RedirectToAction("Details", answer.DiscussionId);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Forum/Create

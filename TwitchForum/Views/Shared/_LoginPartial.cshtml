@@ -9,7 +9,7 @@
             @if (this.User.IsInRole("manager"))
             {
                 <li class="nav-item">
-                    @Html.ActionLink("Добавить админа", "Index", "Main", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-light", id = "registerLink" })
+                    @Html.ActionLink("Добавить админа", "AddAdmin", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-light", id = "registerLink" })
                 </li>
 
             }
