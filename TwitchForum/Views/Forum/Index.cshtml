@@ -11,16 +11,14 @@
 </head>
 <body class="forum-body">
     <div class="body-content container">
-        <div class="row">
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
+        <div class="row d-flex justify-content-center">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-light rounded-btn" })
         </div>
         <div class="row blog-row">
             <div class="col blog-col">
                 @foreach (var item in Model)
                 {
-                    <a class="post-blog-chose" href=@Url.Action("Details", new { id= item.Id})>
+                    <a class="post-blog-chose" href=@Url.Action("Details", new { id = item.Id })>
                         <div class="blog-post">
                             <div class=" blog-post-title">
                                 @item.Title
@@ -34,7 +32,17 @@
                                 </p>
                             </div>
                             <div class="blog-post-body">
-                                <p>@item.Text.Substring(0, 200)</p>
+                                <p>
+                                    @{if (item.Text.Length > 200)
+                                        {
+                                            item.Text.Substring(0, 200) + "...";
+                                        }
+                                        else
+                                        {
+                                            item.Text;
+                                        }
+                                    }
+                                </p>
                             </div>
 
                             <div class="blog-bottom">

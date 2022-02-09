@@ -21,6 +21,7 @@ namespace TwitchForum.BLL.Services
         public Answer Add(Answer answer)
         {
             _uoW.AnswerRepository.Add(answer);
+
             return _uoW.AnswerRepository.Get(answer);
         }
 
@@ -40,9 +41,9 @@ namespace TwitchForum.BLL.Services
             return _uoW.AnswerRepository.GetAll();
         }
 
-        public IEnumerable<Answer> GetAllForChannel(int id)
+        public async Task<IEnumerable<Answer>> GetAllForChannel(int id)
         {
-            return _uoW.AnswerRepository.GetAllForChannel(id);
+            return await _uoW.AnswerRepository.GetAllForChannel(id);
         }
 
         public Answer GetById(int Id)

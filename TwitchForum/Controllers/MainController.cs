@@ -17,10 +17,10 @@ namespace TwitchForum.Controllers
 {
     public class MainController : Controller
     {
-        private ApplicationUserManager _userManager;
         private readonly IMessagesService _messageService;
         private readonly IUserService _userService;
         private readonly IChannelService _channelService;
+        private ApplicationUserManager _userManager;
 
         public ApplicationUserManager UserManager
         {
@@ -34,11 +34,11 @@ namespace TwitchForum.Controllers
             }
         }
 
-        public MainController(ApplicationUserManager userManager, IMessagesService messageRepository, IUserService userRepository, IChannelService channelService)
+        public MainController(ApplicationUserManager userManager, IMessagesService messageRepository, IUserService userService, IChannelService channelService)
         {
             UserManager = userManager;
             _messageService = messageRepository;
-            _userService = userRepository;
+            _userService = userService;
             _channelService = channelService;
         }
 

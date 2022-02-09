@@ -13,86 +13,90 @@
 </head>
 <body>
     <div class="container">
-        <div class="discussion">
-            <div class="discussion-head">
-                <div class="col-8">
-                    <div> <p>@Model.Disscusion.Title</p></div>
-                    <div class="blog-post-meta">Запощено @Model.Disscusion.User.UserName в @Model.Disscusion.PublicationTime теме канала: @Model.Disscusion.Channel?.Name ??"-" </div>
+        <div class="discussion-container">
+            <div class="discussion">
+                <div class="discussion-head">
+                    <div class="col-8">
+                        <div class="discussion-title"> <p>@Model.Disscusion.Title</p></div>
+                        <div class="discussion-meta">Запощено @Model.Disscusion.User.UserName в @Model.Disscusion.PublicationTime теме канала: @Model.Disscusion.Channel.Name" </div>
+                    </div>
+                    <div class="col-4">
+                        @if (User.Identity.Name == Model.Disscusion.User.UserName || User.IsInRole("admin") || User.IsInRole("moderator"))
+                        {
+                            <a href="@Html.Action("Delete", new { id = Model.Disscusion.Id })">Удалить</a>
+                        }
+                        @if (User.Identity.Name == Model.Disscusion.User.UserName)
+                        {
+                            <a href="@Html.Action("Edit", new { id = Model.Disscusion.Id })">Изменить</a>
+                        }
+                    </div>
                 </div>
-                <div class="col-4">
-                    @if (User.Identity.Name == Model.Disscusion.User.UserName || User.IsInRole("admin") || User.IsInRole("moderator"))
-                    {
-                        <a href="@Html.Action("Delete", new { id = Model.Disscusion.Id })">Удалить</a>
-                    }
-                    @if (User.Identity.Name == Model.User.UserName)
-                    {
-                        <a href="@Html.Action("Edit", new { id = Model.Disscusion.Id })">Изменить</a>
-                    }
+                <div class="discussion-body">
+                    <p>@Model.Disscusion.Text</p>
                 </div>
             </div>
-            <div class="discussion-body">
-                <p>@Model.Disscusion.Text</p>
-            </div>
-        </div>
-        <div class="answers">
-            <div class="write-answer">
-                @Html.BeginForm("Answer", "Forum", FormMethod.Post){
-                @Html.HiddenFor(x => x.NewAnswer.UserId, Context.User.Identity.Name)
-                @Html.HiddenFor(x => x.NewAnswer.Discussion, Model.Disscusion);
-                @Html.HiddenFor(x => x.NewAnswer.DiscussionId, Model.Disscusion.Id);
-                @Html.TextAreaFor(x => x.NewAnswer.Text)
-                }
-            </div>
-            <div class="prev-answers">
-                @foreach (var item in Model.Answers)
-                {
-                    if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "204a0130-2b28-468d-8630-440b4897d753") != null)
+            <div class="answers">
+                <h2 class="add-more">Добавить коментарий:</h2>
+                <div class="write-answer container-sm">
+                    @using (Html.BeginForm("Answer", "Forum", FormMethod.Post, new { @class = "form-horizontal form-answer" }))
                     {
-                        //manager
-                        <li>
-                            <div class="toast fade show mb-sm-1">
-
-                                <div class="toast-header">
-                                    <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/m.png" />
-                                    @Html.DisplayFor(modelItem => item.Sender.UserName)
-                                </div>
-                                <div class="toast-body">
-                                    @Html.DisplayFor(modelItem => item.Text)
-                                </div>
-                            </div>
-                        </li>
+                        @Html.HiddenFor(x => x.NewAnswer.UserId, new { Value = Context.User.Identity.Name });
+                        @Html.HiddenFor(x => x.NewAnswer.DiscussionId, new { Value = Model.Disscusion.Id });
+                        @Html.TextAreaFor(x => x.NewAnswer.Text, new { @class = "form-control details-textarea", required = "required" })
+                        @*@Html.ValidationMessageFor(model => model.NewAnswer.Text, "Введите сообщение для отправки", new { @class = "text-danger" })*@
+                        <div class="send-btn">
+                            <button type="submit" class="btn btn-light">Ответить</button>
+                        </div>
                     }
-                    else if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "f1573978-1f60-4090-9c9c-d2200d8bee48") != null)
-                    {
-                        //admin
-                        <li>
-                            <div class="toast fade show mb-sm-1">
+                </div>
 
-                                <div class="toast-header">
-                                    <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/a.png" />
-                                    @Html.DisplayFor(modelItem => item.Sender.UserName)
-                                </div>
-                                <div class="toast-body">
-                                    @Html.DisplayFor(modelItem => item.Text)
-                                </div>
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            <div class="toast fade show mb-sm-1">
+                <div class="prev-answers row">
+                    <div class="prev-container col-5">
+                        @foreach (var item in Model.Answers)
+                        {
+                            if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "204a0130-2b28-468d-8630-440b4897d753") != null)
+                            {
+                                //manager
+                                <div class="card">
 
-                                <div class="toast-header">
-                                    @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    <div class="card-header">
+                                        <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/m.png" />
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="card-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
                                 </div>
-                                <div class="toast-body">
-                                    @Html.DisplayFor(modelItem => item.Text)
+                            }
+                            else if (item.Sender.Roles.FirstOrDefault(x => x.RoleId == "f1573978-1f60-4090-9c9c-d2200d8bee48") != null)
+                            {
+                                //admin
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        <img width="20" height="20" src="https://img.icons8.com/fluency/48/000000/a.png" />
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="card-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    }
-                }
+                            }
+                            else
+                            {
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                                    </div>
+                                    <div class="card-body">
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>

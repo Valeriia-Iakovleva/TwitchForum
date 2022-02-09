@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,12 @@ namespace TwitchForum.DAL.Repositories
 
         public Answer Add(Answer item)
         {
-            _forumContext.Answers.Add(item);
+            var answer = _forumContext.Answers.Attach(item);
+
+            _forumContext.Answers.Add(answer);
+
+            _forumContext.SaveChanges();
+
             return _forumContext.Answers.FirstOrDefault(x => x == item);
         }
 
@@ -47,13 +53,13 @@ namespace TwitchForum.DAL.Repositories
             return answers;
         }
 
-        public IEnumerable<Answer> GetAllForChannel(int id)
+        public async Task<IEnumerable<Answer>> GetAllForChannel(int id)
         {
             var answers = _forumContext.Answers.Where(x => x.DiscussionId == id);
 
             Construct(answers.ToArray());
 
-            return answers;
+            return await answers.ToListAsync();
         }
 
         public Answer GetById(int id)

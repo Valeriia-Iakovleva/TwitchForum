@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using TwitchForum.BLL.Hub;
+using TwitchForum.BLL;
 using TwitchForum.BLL.Services;
 using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL;
@@ -24,7 +24,7 @@ namespace TwitchForum.DependencyInjection
         public override void Load()
         {
             //Bind<DbContext>().To<ForumContext>();
-            Bind<DbContext>().To<ForumContext>().InRequestScope();
+            Bind<DbContext>().To<ForumContext>().InSingletonScope();
             Bind(typeof(IUserStore<User>)).To(typeof(UserStore<User>)).InRequestScope();
             Bind<IMessagesRepository>().To<MessagesRepository>();
             Bind<IUserRepository>().To<UserRepository>();
@@ -34,11 +34,9 @@ namespace TwitchForum.DependencyInjection
             Bind<IUnitOfWork>().To<UnitOfWork>();
             Bind<IUserService>().To<UserService>();
             Bind<IMessagesService>().To<MessagesService>();
-            Bind<IChannelService>().To<ChannelService>().InTransientScope();
+            Bind<IChannelService>().To<ChannelService>();
             Bind<IForumService>().To<ForumService>();
             Bind<IAnswerService>().To<AnswerService>();
-            Bind<IUserService>().To<UserService>();
-            Bind<IChannelService>().To<ChannelService>();
 
             //Bind<IUserService>().To<UserService>().WithPropertyValue("userService", new UnitOfWork());
         }

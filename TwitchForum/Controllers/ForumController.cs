@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TwitchForum.BLL.Services.Interfaces;
+using TwitchForum.DAL;
 using TwitchForum.DAL.Models;
 using TwitchForum.Models;
 
@@ -15,9 +18,23 @@ namespace TwitchForum.Controllers
         private readonly IAnswerService _answerService;
         private readonly IChannelService _channelService;
         private readonly IUserService _userService;
+        private ApplicationUserManager _userManager;
 
-        public ForumController(IForumService forumService, IAnswerService answerService, IChannelService channelService, IUserService userService)
+        public ApplicationUserManager UserManager
         {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public ForumController(ApplicationUserManager userManager, IForumService forumService, IAnswerService answerService, IChannelService channelService, IUserService userService)
+        {
+            UserManager = userManager;
             _forumService = forumService;
             _answerService = answerService;
             _channelService = channelService;
@@ -42,55 +59,55 @@ namespace TwitchForum.Controllers
         }
 
         // GET: Forum/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var details = new DetailsViewModel() { Answers = _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
+            var details = new DetailsViewModel() { Answers = await _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
             return View(details);
         }
 
         // GET: Forum/Create
         public ActionResult Create()
         {
-            var s = ;
             var viewModel = new CreateDiscussionViewModel() { Channels = new SelectList(_channelService.GetAll(), "Id", "Name"), Discussion = new Discussion() };
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Answer(CreateDiscussionViewModel viewModel)
+        public ActionResult Answer(DetailsViewModel viewModel)
         {
-            try
+            var answer = new Answer()
             {
-                var answer = new Answer()
-                {
-                    Discussion = viewModel.Discussion,
-                    DiscussionId = viewModel.Discussion.Id,
-                    Sender = _userService.GetByName(viewModel.Name),
-                    Text = viewModel.Discussion.Text,
-                    UserId = _userService.GetByName(viewModel.Name).Id
-                };
-                _answerService.Add(answer);
-                return RedirectToAction("Details", answer.DiscussionId);
-            }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
+                Discussion = _forumService.GetById((int)viewModel.NewAnswer.DiscussionId),
+                DiscussionId = (int)viewModel.NewAnswer.DiscussionId,
+                Sender = _userService.GetByName(viewModel.NewAnswer.UserId),
+                Text = viewModel.NewAnswer.Text,
+                UserId = _userService.GetByName(viewModel.NewAnswer.UserId).Id
+            };
+            _answerService.Add(answer);
+            return RedirectToAction("Details", answer.DiscussionId);
         }
 
         // POST: Forum/Create
         [HttpPost]
-        public ActionResult Create(Discussion discussion)
+        public ActionResult Create(CreateDiscussionViewModel viewModel)
         {
             try
             {
                 // TODO: Add insert logic here
+                var discussion = new Discussion()
+                {
+                    Channel = _channelService.GetById((int)viewModel.Discussion.ChannelId),
+                    Text = viewModel.Discussion.Text,
+                    Title = viewModel.Discussion.Title,
+                    ChannelId = viewModel.Discussion.ChannelId,
+                };
+                discussion.UserId = UserManager.Users.FirstOrDefault(x => x.UserName == viewModel.Name).Id;
                 _forumService.Add(discussion);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(new CreateDiscussionViewModel());
             }
         }
 
