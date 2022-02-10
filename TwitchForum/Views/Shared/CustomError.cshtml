@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Чтото пошло не так :(</h1>
+    <hr />
+    <h3>Детали:</h3>
+    <p>@ViewData.Model.Exception</p>
+    @Html.ActionLink("Вернутся на главную", "Index", "Forum")
+</div>

@@ -20,6 +20,7 @@ namespace TwitchForum.DAL.Repositories
 
         public Message Add(Message item)
         {
+            item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
             _forumContext.Messages.Add(item);
 
             _forumContext.SaveChanges();

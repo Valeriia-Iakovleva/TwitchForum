@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using TwitchForum.ErrorHandler;
 
 namespace TwitchForum
 {
@@ -7,6 +8,7 @@ namespace TwitchForum
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new ArgumentExceptionHandleFilter());
             filters.Add(new HandleErrorAttribute());
         }
     }

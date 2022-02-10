@@ -10,19 +10,19 @@ using TwitchForum.Controllers;
 namespace TwitchForum.Tests.Controllers
 {
     [TestClass]
-    public class HomeControllerTest
+    public class MainControllerTest
     {
         [TestMethod]
         public void Index()
         {
-            // Arrange
-            //HomeController controller = new HomeController();
+            // // Arrange
+            // MainController controller = new MainController();
 
-            // Act
-            //ViewResult result = controller.Index() as ViewResult;
+            // //Act
+            //ViewResult result = controller.Index(1) as ViewResult;
 
-            // Assert
-            //Assert.IsNotNull(result);
+            // //Assert
+            // Assert.IsNotNull(result);
         }
 
         [TestMethod]

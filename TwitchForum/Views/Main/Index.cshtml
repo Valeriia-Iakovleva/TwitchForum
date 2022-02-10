@@ -11,12 +11,12 @@
 
         <div class="row py-lg-5" d-flex justify-content-center">
 
-            @using (Html.BeginForm("Index", "Main", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "input-group col-sm-7 input-group-lg ", role = "form" }))
+            @using (Html.BeginForm("Search", "Forum", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "input-group col-sm-7 input-group-lg ", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="input-group  justify-content-center">
                     <input type="search" class="form-control search-border p-3" />
-                    <button class="btn btn-outline-secondary search-border p-3" type="submit"><img width="20px" height="20px" src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/452/external-search-ui-dreamstale-lineal-dreamstale.png"></button>
+                    <button class="btn btn-outline-secondary search-border p-3" accesskey="Enter" type="submit"><img width="20px" height="20px" src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/452/external-search-ui-dreamstale-lineal-dreamstale.png"></button>
                 </div>
             }
         </div>

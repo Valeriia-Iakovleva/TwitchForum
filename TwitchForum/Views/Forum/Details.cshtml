@@ -20,14 +20,18 @@
                         <div class="discussion-title"> <p>@Model.Disscusion.Title</p></div>
                         <div class="discussion-meta">Запощено @Model.Disscusion.User.UserName в @Model.Disscusion.PublicationTime теме канала: @Model.Disscusion.Channel.Name" </div>
                     </div>
-                    <div class="col-4">
-                        @if (User.Identity.Name == Model.Disscusion.User.UserName || User.IsInRole("admin") || User.IsInRole("moderator"))
+                    <div class="col-4 d-flex align-items-center control-discussion">
+                        @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                         {
-                            <a href="@Html.Action("Delete", new { id = Model.Disscusion.Id })">Удалить</a>
+                            @Html.ActionLink("Удалить", "Delete", new { id = Model.Disscusion.Id })
+                        }
+                        else if (User.Identity.Name == Model.Disscusion.User.UserName)
+                        {
+                            @Html.ActionLink("Удалить", "DeleteByUser", new { id = Model.Disscusion.Id, user = User.Identity.Name })
                         }
                         @if (User.Identity.Name == Model.Disscusion.User.UserName)
                         {
-                            <a href="@Html.Action("Edit", new { id = Model.Disscusion.Id })">Изменить</a>
+                            @Html.ActionLink("Изменить", "Edit", new { id = Model.Disscusion.Id })
                         }
                     </div>
                 </div>

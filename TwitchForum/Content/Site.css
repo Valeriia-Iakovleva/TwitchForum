@@ -186,6 +186,7 @@ textarea {
     margin-bottom: 0;
     text-transform: uppercase;
     padding: 10px 2px 10px 10px;
+    display: flex;
 }
 
 .discussion-title {
@@ -260,4 +261,8 @@ textarea {
 .create-row {
     border-radius: 1.25em;
     background-color: rgba(76,76,79,0.6);
+}
+
+.control-discussion a {
+    color: lavender;
 }

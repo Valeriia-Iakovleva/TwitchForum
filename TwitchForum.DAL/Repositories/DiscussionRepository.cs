@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,11 @@ namespace TwitchForum.DAL.Repositories
 
         public Discussion Add(Discussion item)
         {
-            _forumContext.Discussions.Add(item);
+            var created = _forumContext.Discussions.Add(item);
 
             _forumContext.SaveChanges();
 
-            return _forumContext.Discussions.Find(item);
+            return _forumContext.Discussions.FirstOrDefault(x => x.Id == created.Id);
         }
 
         public bool Delete(Discussion item)
@@ -91,7 +92,13 @@ namespace TwitchForum.DAL.Repositories
 
         public Discussion Update(Discussion item)
         {
-            throw new NotImplementedException();
+            var discussion = _forumContext.Discussions.Attach(item);
+
+            _forumContext.Entry(item).State = EntityState.Modified;
+
+            _forumContext.SaveChanges();
+
+            return discussion;
         }
 
         private void Construct(params Discussion[] discussions)

@@ -61,28 +61,15 @@ namespace TwitchForum.Hubs
         {
         }
 
-        //public ChatHub(IUserService userService, IMessagesService messagesService)
-        //{
-        //    _userService = userService;
-        //    _messagesService = messagesService;
-        //}
-
         public void Send(string name, string message)
         {
-            var ser = userService;
             var user = userService.GetByName(Context.User.Identity.Name);
-            var mess = messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
-            // Call the addNewMessageToPage method to update clients.
+            var mess = messagesService.Add(new Message() { SendingTime = DateTime.Now, Text = message, UserId = user.Id });
+            var ser = userService;
             if (Context.User.IsInRole("user"))
                 Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);
             else
                 Clients.All.addMenegerMessageToPage(Context.User.Identity.Name, message);
-
-            //messagesService.Add(new Message() { Sender = user, SendingTime = DateTime.Now, Text = message, UserId = user.Id });
-        }
-
-        private async void SaveMessege(string name, string message)
-        {
         }
     }
 }

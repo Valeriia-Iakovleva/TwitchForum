@@ -11,6 +11,8 @@ namespace TwitchForum.BLL.Services.Interfaces
     {
         IEnumerable<Discussion> GetAll();
 
+        IEnumerable<Discussion> GetAllForStartPage();
+
         IEnumerable<Discussion> GetN(int n);
 
         IEnumerable<Discussion> Search(string words);
@@ -25,6 +27,8 @@ namespace TwitchForum.BLL.Services.Interfaces
 
         Discussion Add(Discussion discussion);
 
-        bool Delete(Discussion discussion);
+        bool Delete(int id);
+
+        Discussion Update(Discussion discussion);
     }
 }

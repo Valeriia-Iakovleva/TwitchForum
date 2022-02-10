@@ -20,24 +20,40 @@ namespace TwitchForum.BLL.Services
 
         public Discussion Add(Discussion discussion)
         {
-            _uoW.DiscussionRepository.Add(discussion);
-            return _uoW.DiscussionRepository.Get(discussion);
+            return _uoW.DiscussionRepository.Add(discussion);
         }
 
-        public bool Delete(Discussion discussion)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return _uoW.DiscussionRepository.Delete(_uoW.DiscussionRepository.GetById(id));
         }
 
         public Discussion Get(Discussion discussion)
         {
-            throw new NotImplementedException();
+            return _uoW.DiscussionRepository.Get(discussion);
         }
 
         public IEnumerable<Discussion> GetAll()
         {
             var discussions = _uoW.DiscussionRepository.GetAll();
             return discussions;
+        }
+
+        public IEnumerable<Discussion> GetAllForStartPage()
+        {
+            var returnDiscussions = GetAll();
+            foreach (var item in returnDiscussions)
+            {
+                if (item.Text.Length > 200)
+                {
+                    item.Text = item.Text.Substring(0, 200) + "...";
+                }
+                else
+                {
+                    item.Text = item.Text + "...";
+                }
+            }
+            return returnDiscussions;
         }
 
         public Discussion GetById(int Id)
@@ -73,14 +89,9 @@ namespace TwitchForum.BLL.Services
             return discussions;
         }
 
-        //private IEnumerable<Discussion> Construnct(IEnumerable<Discussion> discussions)
-        //{
-        //    foreach (var descus in discussions)
-        //    {
-        //        descus.Channel = _uoW.ChannelRepository.GetById((int)descus.ChannelId);
-        //        descus.User = _uoW.UserRepository.GetById(descus.UserId.ToString());
-        //    }
-        //    return discussions;
-        //}
+        public Discussion Update(Discussion discussion)
+        {
+            return _uoW.DiscussionRepository.Update(discussion);
+        }
     }
 }

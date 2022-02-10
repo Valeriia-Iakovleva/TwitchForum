@@ -45,7 +45,7 @@ namespace TwitchForum.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Twitch Forum";
-            return View(_forumService.GetAll().OrderBy(x => x.Rating).ThenBy(x => x.PublicationTime));
+            return View(_forumService.GetAllForStartPage().OrderBy(x => x.Rating).ThenBy(x => x.PublicationTime));
         }
 
         public ActionResult Chenals(int id)
@@ -91,27 +91,22 @@ namespace TwitchForum.Controllers
         [HttpPost]
         public ActionResult Create(CreateDiscussionViewModel viewModel)
         {
-            try
+            // TODO: Add insert logic here
+            var discussion = new Discussion()
             {
-                // TODO: Add insert logic here
-                var discussion = new Discussion()
-                {
-                    Channel = _channelService.GetById((int)viewModel.Discussion.ChannelId),
-                    Text = viewModel.Discussion.Text,
-                    Title = viewModel.Discussion.Title,
-                    ChannelId = viewModel.Discussion.ChannelId,
-                };
-                discussion.UserId = UserManager.Users.FirstOrDefault(x => x.UserName == viewModel.Name).Id;
-                _forumService.Add(discussion);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(new CreateDiscussionViewModel());
-            }
+                Text = viewModel.Discussion.Text,
+                Title = viewModel.Discussion.Title,
+                ChannelId = _channelService.GetById((int)viewModel.Discussion.ChannelId).Id,
+                UserId = UserManager.Users.FirstOrDefault(x => x.UserName == viewModel.Name).Id
+            };
+
+            _forumService.Add(discussion);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Forum/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             return View();
@@ -119,11 +114,11 @@ namespace TwitchForum.Controllers
 
         // POST: Forum/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Discussion discussion)
         {
             try
             {
-                // TODO: Add update logic here
+                _forumService.Update(discussion);
 
                 return RedirectToAction("Index");
             }
@@ -131,28 +126,34 @@ namespace TwitchForum.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Forum/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Forum/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [Authorize(Roles = "admin, menager")]
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            // TODO: Add delete logic here
+            _forumService.Delete(id);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin, menager")]
+        public ActionResult DeleteByUser(string user, int id)
+        {
+            if (user == _forumService.GetById(id).User.UserName)
             {
-                return View();
+                _forumService.Delete(id);
             }
+            else
+            {
+                throw new HttpAntiForgeryException("Exese denide! You are trying to delete not your forum");
+            }
+            // TODO: Add delete logic here
+
+            return RedirectToAction("Index");
         }
     }
 }
