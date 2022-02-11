@@ -15,7 +15,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="input-group  justify-content-center">
-                    <input type="search" class="form-control search-border p-3" />
+                    <input type="search" name="words" class="form-control search-border p-3" />
                     <button class="btn btn-outline-secondary search-border p-3" accesskey="Enter" type="submit"><img width="20px" height="20px" src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/452/external-search-ui-dreamstale-lineal-dreamstale.png"></button>
                 </div>
             }
@@ -96,17 +96,18 @@
                     <div>
                         Страница @(Model.Messages.PageCount < Model.Messages.PageNumber ? 0 : Model.Messages.PageNumber) из @Model.Messages.PageCount
                     </div>
-
-                    @Html.PagedListPager(Model.Messages, page => Url.Action("Index", new
-                    {
-                        page
-                    }),
-                            new PagedListRenderOptions
-                          {
-                                ContainerDivClasses = new string[] { "pagination-lg" },
-                                UlElementClasses = new string[] { "pagination pagination-lg" },
-                                LiElementClasses = new string[] { "page-item" }
-                          })
+                    <div>
+                        @Html.PagedListPager(Model.Messages, page => Url.Action("Index", new
+                 {
+                     page
+                 }),
+                         new PagedListRenderOptions
+                       {
+                             ContainerDivClasses = new string[] { "pagination-lg" },
+                             UlElementClasses = new string[] { "pagination pagination-lg" },
+                             LiElementClasses = new string[] { "page-item" }
+                       })
+                    </div>
                 </div>
             </div>
             @section scripts {
@@ -162,17 +163,20 @@
             <div class="mt-sm-3">
                 @foreach (var channel in Model.Channels)
                 {
-                    <div class="card">
-                        <div class="card-header">
-                            Популярное обсуждение
+                    <a class="a-card" href=@Url.Action("Chennals", "Forum" , new { id=channel.Id})>
+                        <div class="card">
+                            <div class="card-header">
+                                Популярное обсуждение
+                            </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+                                    <p>@channel.Name</p>
+                                    <footer class="blockquote-footer">@channel.Followers подпищиков сейчас <cite title="Source Title"></cite></footer>
+                                </blockquote>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                                <p>@channel.Name</p>
-                                <footer class="blockquote-footer">@channel.Followers подпищиков сейчас <cite title="Source Title"></cite></footer>
-                            </blockquote>
-                        </div>
-                    </div>
+                    </a>
+
                 }
             </div>
         </div>

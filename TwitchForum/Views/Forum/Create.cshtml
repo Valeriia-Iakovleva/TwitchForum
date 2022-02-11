@@ -20,16 +20,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Discussion.Text, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Discussion.Text, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Discussion.Text, new { htmlAttributes = new { @class = "form-control create-textarea" } })
                         @Html.ValidationMessageFor(model => model.Discussion.Text, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.Discussion.Rating, 0);
-                @Html.HiddenFor(model => model.Name, new { Value = Context.User.Identity.Name });
+                @Html.HiddenFor(model => model.Discussion.Rating, 0)
+                @Html.HiddenFor(model => model.Name, new { Value = Context.User.Identity.Name })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Discussion.ChannelId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(x => x.Discussion.ChannelId, Model.Channels)
+                        @Html.DropDownListFor(x => x.Discussion.ChannelId, Model.Channels, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Discussion.ChannelId, "", new { @class = "text-danger" })
                     </div>
                 </div>

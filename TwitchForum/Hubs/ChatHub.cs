@@ -19,7 +19,7 @@ namespace TwitchForum.Hubs
 
         private IMessagesService _messagesService;
 
-        public IUserService userService
+        public IUserService UserService
 
         {
             get
@@ -38,7 +38,7 @@ namespace TwitchForum.Hubs
             }
         }
 
-        public IMessagesService messagesService
+        public IMessagesService MessagesService
 
         {
             get
@@ -63,9 +63,9 @@ namespace TwitchForum.Hubs
 
         public void Send(string name, string message)
         {
-            var user = userService.GetByName(Context.User.Identity.Name);
-            var mess = messagesService.Add(new Message() { SendingTime = DateTime.Now, Text = message, UserId = user.Id });
-            var ser = userService;
+            var user = UserService.GetByName(Context.User.Identity.Name);
+            MessagesService.Add(new Message() { SendingTime = DateTime.Now, Text = message, UserId = user.Id });
+
             if (Context.User.IsInRole("user"))
                 Clients.All.addNewMessageToPage(Context.User.Identity.Name, message);
             else

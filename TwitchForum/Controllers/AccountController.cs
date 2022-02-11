@@ -180,6 +180,25 @@ namespace TwitchForum.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "manager")]
+        public ActionResult AddAdmin()
+        {
+            try { return View(new SelectList(UserManager.Users.Where(x => x.Roles.FirstOrDefault(r => r.RoleId == "f1573978-1f60-4090-9c9c-d2200d8bee48") == null), "Id", "UserName")); }
+            catch (Exception e)
+            {
+                var ee = e;
+                return RedirectToAction("Index", "Main");
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public ActionResult AddAdmin(string userId)
+        {
+            UserManager.AddToRole(userId, "admin");
+            return RedirectToAction("Index", "Main");
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

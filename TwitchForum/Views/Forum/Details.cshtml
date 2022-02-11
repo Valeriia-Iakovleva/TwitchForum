@@ -20,8 +20,8 @@
                         <div class="discussion-title"> <p>@Model.Disscusion.Title</p></div>
                         <div class="discussion-meta">Запощено @Model.Disscusion.User.UserName в @Model.Disscusion.PublicationTime теме канала: @Model.Disscusion.Channel.Name" </div>
                     </div>
-                    <div class="col-4 d-flex align-items-center control-discussion">
-                        @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                    <div class="col-4 d-flex align-items-center justify-content-sm-evenly control-discussion">
+                        @if (User.IsInRole("admin") || User.IsInRole("manager"))
                         {
                             @Html.ActionLink("Удалить", "Delete", new { id = Model.Disscusion.Id })
                         }
@@ -39,20 +39,27 @@
                     <p>@Model.Disscusion.Text</p>
                 </div>
             </div>
-            <div class="answers">
-                <h2 class="add-more">Добавить коментарий:</h2>
-                <div class="write-answer container-sm">
-                    @using (Html.BeginForm("Answer", "Forum", FormMethod.Post, new { @class = "form-horizontal form-answer" }))
-                    {
-                        @Html.HiddenFor(x => x.NewAnswer.UserId, new { Value = Context.User.Identity.Name });
-                        @Html.HiddenFor(x => x.NewAnswer.DiscussionId, new { Value = Model.Disscusion.Id });
-                        @Html.TextAreaFor(x => x.NewAnswer.Text, new { @class = "form-control details-textarea", required = "required" })
-                        @*@Html.ValidationMessageFor(model => model.NewAnswer.Text, "Введите сообщение для отправки", new { @class = "text-danger" })*@
-                        <div class="send-btn">
-                            <button type="submit" class="btn btn-light">Ответить</button>
+            @{if (User.Identity.IsAuthenticated)
+                {
+                    <div class="add-comment">
+                        <h2 class="add-more">Добавить коментарий:</h2>
+                        <div class="write-answer container-sm">
+                            @using (Html.BeginForm("Answer", "Forum", FormMethod.Post, new { @class = "form-horizontal form-answer" }))
+                            {
+                                @Html.HiddenFor(x => x.NewAnswer.UserId, new { Value = Context.User.Identity.Name });
+                                @Html.HiddenFor(x => x.NewAnswer.DiscussionId, new { Value = Model.Disscusion.Id });
+                                @Html.TextAreaFor(x => x.NewAnswer.Text, new { @class = "form-control details-textarea", required = "required" })
+                                @*@Html.ValidationMessageFor(model => model.NewAnswer.Text, "Введите сообщение для отправки", new { @class = "text-danger" })*@
+                                <div class="send-btn">
+                                    <button type="submit" class="btn btn-light">Ответить</button>
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
+                    </div>
+                }
+
+            }
+            <div class="answers">
 
                 <div class="prev-answers row">
                     <div class="prev-container col-5">

@@ -20,9 +20,7 @@ namespace TwitchForum.BLL.Services
 
         public Answer Add(Answer answer)
         {
-            _uoW.AnswerRepository.Add(answer);
-
-            return _uoW.AnswerRepository.Get(answer);
+            return _uoW.AnswerRepository.Add(answer);
         }
 
         public bool Delete(Answer answer)

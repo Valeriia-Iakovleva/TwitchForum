@@ -29,12 +29,12 @@ namespace TwitchForum.BLL.Services
 
         public bool Delete(Message message)
         {
-            throw new NotImplementedException();
+            return _uoW.MessagesRepository.Delete(message);
         }
 
         public Message Get(Message message)
         {
-            throw new NotImplementedException();
+            return _uoW.MessagesRepository.Get(message);
         }
 
         public IEnumerable<Message> GetAll()
@@ -42,9 +42,9 @@ namespace TwitchForum.BLL.Services
             return _uoW.MessagesRepository.GetAll().ToList();
         }
 
-        public Message GetById(int Id)
+        public Message GetById(int id)
         {
-            throw new NotImplementedException();
+            return _uoW.MessagesRepository.GetById(id);
         }
 
         public IEnumerable<Message> GetN(int n)

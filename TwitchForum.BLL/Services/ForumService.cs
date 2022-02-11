@@ -69,7 +69,9 @@ namespace TwitchForum.BLL.Services
 
         public IEnumerable<Discussion> Search(string words)
         {
-            if (words.Length == 0 || words == null)
+            if (words == null)
+                throw new ArgumentNullException("words", "Try to search for nothing!");
+            if (words.Length == 0)
                 throw new ArgumentNullException("words", "Try to search for nothing!");
             var discussions = _uoW.DiscussionRepository.Search(words);
             return discussions;

@@ -15,10 +15,10 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 
         User GetById(string id);
 
-        User Add(User item);
-
         Task<bool> Delete(User item);
 
         User Update(User item);
+
+        IEnumerable<User> GetAll();
     }
 }

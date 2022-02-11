@@ -20,12 +20,12 @@ namespace TwitchForum.BLL.Services
 
         public Channel Add(Channel channel)
         {
-            throw new NotImplementedException();
+            return _uoW.ChannelRepository.Add(channel);
         }
 
         public bool Delete(Channel channel)
         {
-            throw new NotImplementedException();
+            return _uoW.ChannelRepository.Delete(channel);
         }
 
         public Channel Get(Channel channel)

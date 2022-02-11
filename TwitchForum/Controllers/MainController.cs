@@ -42,12 +42,12 @@ namespace TwitchForum.Controllers
             _channelService = channelService;
         }
 
-        // GET: Main
         public ActionResult Index(int? page)
         {
-            var currentUser = this.User;
             var mainViewModel = new MainViewModel();
+
             var massages = _messageService.GetAll();
+
             int pageNumber = (page ?? 1);
             mainViewModel.Messages = massages.ToPagedList(pageNumber, mainViewModel.NumberfMesseges);
             mainViewModel.Channels = _channelService.GetN(5).ToList();

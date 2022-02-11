@@ -83,7 +83,7 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Discussion> SearchforChannel(Channel channel)
         {
-            var discuss = _forumContext.Discussions.Where(x => x.Channel == channel);
+            var discuss = _forumContext.Discussions.Where(x => x.Channel.Id == channel.Id);
 
             Construct(discuss.ToArray());
 

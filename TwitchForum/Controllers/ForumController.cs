@@ -48,11 +48,12 @@ namespace TwitchForum.Controllers
             return View(_forumService.GetAllForStartPage().OrderBy(x => x.Rating).ThenBy(x => x.PublicationTime));
         }
 
-        public ActionResult Chenals(int id)
+        public ActionResult Chennals(int id)
         {
-            return View(_forumService.SearchByChannelId(id).OrderBy(x => x.Rating));
+            return View("Search", _forumService.SearchByChannelId(id).OrderBy(x => x.Rating));
         }
 
+        [HttpPost]
         public ActionResult Search(string words)
         {
             return View(_forumService.Search(words).OrderBy(x => x.Rating));
@@ -72,19 +73,17 @@ namespace TwitchForum.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [Authorize]
         public ActionResult Answer(DetailsViewModel viewModel)
         {
             var answer = new Answer()
             {
-                Discussion = _forumService.GetById((int)viewModel.NewAnswer.DiscussionId),
                 DiscussionId = (int)viewModel.NewAnswer.DiscussionId,
-                Sender = _userService.GetByName(viewModel.NewAnswer.UserId),
                 Text = viewModel.NewAnswer.Text,
                 UserId = _userService.GetByName(viewModel.NewAnswer.UserId).Id
             };
             _answerService.Add(answer);
-            return RedirectToAction("Details", answer.DiscussionId);
+            return RedirectToAction("Details", new { id = answer.DiscussionId });
         }
 
         // POST: Forum/Create
@@ -109,7 +108,7 @@ namespace TwitchForum.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_forumService.GetById(id));
         }
 
         // POST: Forum/Edit/5
@@ -128,19 +127,27 @@ namespace TwitchForum.Controllers
             }
         }
 
-        // POST: Forum/Delete/5
-        [HttpPost]
-        [Authorize(Roles = "admin, menager")]
+        [HttpGet]
+        [Authorize(Roles = "manager, admin")]
         public ActionResult Delete(int id)
         {
+            return View(_forumService.GetById(id));
+        }
+
+        // POST: Forum/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "manager, admin")]
+        public ActionResult Delete(Discussion discussion)
+        {
             // TODO: Add delete logic here
-            _forumService.Delete(id);
+            _forumService.Delete(discussion.Id);
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, menager")]
+        [Authorize]
         public ActionResult DeleteByUser(string user, int id)
         {
             if (user == _forumService.GetById(id).User.UserName)

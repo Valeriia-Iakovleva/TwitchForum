@@ -15,12 +15,8 @@ namespace TwitchForum.BLL.Services.Interfaces
 
         IEnumerable<User> GetN(int n);
 
-        User GetById(int Id);
+        User GetById(string Id);
 
-        User Get(User message);
-
-        User Add(User message);
-
-        bool Delete(User message);
+        Task<bool> Delete(User message);
     }
 }

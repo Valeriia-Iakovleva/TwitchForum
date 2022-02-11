@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -16,11 +18,6 @@ namespace TwitchForum.DAL.Repositories
         public UserRepository(ForumContext forumContext)
         {
             _forumContext = forumContext;
-        }
-
-        public User Add(User item)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> Delete(User item)
@@ -45,9 +42,20 @@ namespace TwitchForum.DAL.Repositories
             return _forumContext.Users.Take(n);
         }
 
+        public IEnumerable<User> GetAll()
+        {
+            return _forumContext.Users.ToList();
+        }
+
         public User Update(User item)
         {
-            throw new NotImplementedException();
+            var user = _forumContext.Users.Attach(item);
+
+            _forumContext.Entry(item).State = EntityState.Modified;
+
+            _forumContext.SaveChanges();
+
+            return user;
         }
     }
 }

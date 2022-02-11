@@ -1,0 +1,69 @@
+﻿@model TwitchForum.DAL.Models.Discussion
+<div class="container d-flex justify-content-center flex-column discussion-container">
+    <h3>Подтвердите удаление пост</h3>
+    <div>
+        <h4>Discussion</h4>
+        <hr />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Text)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Text)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rating)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublicationTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PublicationTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChannelId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ChannelId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserId)
+                </dd>
+            </dl>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-dark" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

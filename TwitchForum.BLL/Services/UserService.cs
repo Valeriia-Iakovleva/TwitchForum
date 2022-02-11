@@ -18,29 +18,19 @@ namespace TwitchForum.BLL.Services
             _uoW = unitOfWork;
         }
 
-        public User Add(User message)
+        public async Task<bool> Delete(User message)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(User message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User Get(User user)
-        {
-            throw new NotImplementedException();
+            return await _uoW.UserRepository.Delete(message);
         }
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _uoW.UserRepository.GetAll();
         }
 
-        public User GetById(int Id)
+        public User GetById(string id)
         {
-            throw new NotImplementedException();
+            return _uoW.UserRepository.GetById(id);
         }
 
         public User GetByName(string name)
@@ -50,7 +40,7 @@ namespace TwitchForum.BLL.Services
 
         public IEnumerable<User> GetN(int n)
         {
-            throw new NotImplementedException();
+            return _uoW.UserRepository.GetN(n);
         }
     }
 }

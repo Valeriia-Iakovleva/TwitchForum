@@ -8,8 +8,8 @@ namespace TwitchForum
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new ArgumentExceptionHandleFilter());
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new ArgumentExceptionHandleFilter());
         }
     }
 }

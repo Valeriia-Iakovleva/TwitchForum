@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container eror-page">
+    <h2 class="error-title">Чтото пошло не так :(</h2>
+    <p>@ViewData.Model</p>
+    @Html.ActionLink("Вернутся на главную", "Index", "Main", new { @class = "" })
+</div>

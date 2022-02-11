@@ -8,15 +8,24 @@ namespace TwitchForum.ErrorHandler
 {
     public class ArgumentExceptionHandleFilter : IExceptionFilter
     {
+        //public void OnException(ExceptionContext filterContext)
+        //{
+        //    var model = new HandleErrorInfo(filterContext.Exception, filterContext.RouteData.Values["controller"].ToString(), filterContext.RouteData.Values["action"].ToString());
+        //    filterContext.Result = new ViewResult()
+        //    {
+        //        ViewName = "/Error",
+        //        ViewData = new ViewDataDictionary<HandleErrorInfo>(model),
+        //    };
+        //    filterContext.ExceptionHandled = true;
+        //}
         public void OnException(ExceptionContext filterContext)
         {
-            var model = new HandleErrorInfo(filterContext.Exception, filterContext.RouteData.Values["controller"].ToString(), filterContext.RouteData.Values["action"].ToString());
-            filterContext.Result = new ViewResult()
+            if (!filterContext.ExceptionHandled &&
+                filterContext.Exception.GetType() == typeof(ArgumentException))
             {
-                ViewName = "~/Views/Shared/CustomError.cshtml",
-                ViewData = new ViewDataDictionary<HandleErrorInfo>(model),
-            };
-            filterContext.ExceptionHandled = true;
+                filterContext.Result = new ContentResult() { Content = "You failed something!" };
+                filterContext.ExceptionHandled = true;
+            }
         }
     }
 }

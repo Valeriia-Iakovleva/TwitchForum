@@ -1,0 +1,26 @@
+﻿@model SelectList
+<div class="container d-flex justify-content-center p-2">
+    <div class="acount-body p-2 container-md">
+        @using (Html.BeginForm("AddAdmin", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Добавить админа</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("userId", Model, new { required = "required", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Добавить" class="btn btn-outline-dark" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

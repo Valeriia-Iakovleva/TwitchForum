@@ -20,13 +20,13 @@ namespace TwitchForum.DAL.Repositories
 
         public Answer Add(Answer item)
         {
-            var answer = _forumContext.Answers.Attach(item);
+            item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
 
-            _forumContext.Answers.Add(answer);
+            _forumContext.Answers.Add(item);
 
             _forumContext.SaveChanges();
 
-            return _forumContext.Answers.FirstOrDefault(x => x == item);
+            return _forumContext.Answers.Attach(item);
         }
 
         public bool Delete(Answer item)
