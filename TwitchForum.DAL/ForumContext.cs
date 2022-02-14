@@ -16,10 +16,10 @@ namespace TwitchForum.DAL
 {
     public class ForumContext : IdentityDbContext<User>
     {
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<Channel> Channels { get; set; }
-        public DbSet<Discussion> Discussions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Channel> Channels { get; set; }
+        public virtual DbSet<Discussion> Discussions { get; set; }
+        public virtual DbSet<Answer> Answers { get; set; }
 
         public ForumContext() : base("ForumContext")
         {
