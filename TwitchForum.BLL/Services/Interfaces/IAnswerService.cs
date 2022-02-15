@@ -13,7 +13,7 @@ namespace TwitchForum.BLL.Services.Interfaces
 
         IEnumerable<Answer> GetN(int n);
 
-        Task<IEnumerable<Answer>> GetAllForChannel(int id);
+        IEnumerable<Answer> GetAllForChannel(int id);
 
         Answer GetById(int Id);
 

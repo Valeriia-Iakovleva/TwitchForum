@@ -60,9 +60,9 @@ namespace TwitchForum.Controllers
         }
 
         // GET: Forum/Details/5
-        public async Task<ActionResult> Details(int id)
+        public ActionResult Details(int id)
         {
-            var details = new DetailsViewModel() { Answers = await _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
+            var details = new DetailsViewModel() { Answers = _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
             return View(details);
         }
 

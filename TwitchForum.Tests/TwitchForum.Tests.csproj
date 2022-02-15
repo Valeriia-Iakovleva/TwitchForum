@@ -161,6 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\MainControllerTest.cs" />
     <Compile Include="Repositories\AnswerRepositoryTest.cs" />
+    <Compile Include="Repositories\ForumRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

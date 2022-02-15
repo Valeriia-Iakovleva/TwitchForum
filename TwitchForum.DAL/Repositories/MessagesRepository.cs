@@ -75,7 +75,13 @@ namespace TwitchForum.DAL.Repositories
 
         public Message Update(Message item)
         {
-            throw new NotImplementedException();
+            var message = _forumContext.Messages.Attach(item);
+
+            _forumContext.Entry(item).State = EntityState.Modified;
+
+            _forumContext.SaveChanges();
+
+            return message;
         }
 
         private void Construct(params Message[] messages)

@@ -99,8 +99,8 @@ namespace TwitchForum.Tests.Repositories
             MockAnswerSet.As<IQueryable<Answer>>().Setup(m => m.ElementType).Returns(AnswerProvider.AsQueryable().ElementType);
 
             MockAnswerSet.As<IQueryable<Answer>>().Setup(m => m.GetEnumerator()).Returns(AnswerProvider.AsQueryable().GetEnumerator());
-            // MockADiscussionSet setup
 
+            // MockADiscussionSet setup
             MockADiscussionSet.As<IQueryable<Discussion>>().Setup(m => m.Provider).Returns(DiscussionProvider.AsQueryable().Provider);
 
             MockADiscussionSet.As<IQueryable<Discussion>>().Setup(m => m.Expression).Returns(DiscussionProvider.AsQueryable().Expression);
@@ -108,7 +108,8 @@ namespace TwitchForum.Tests.Repositories
             MockADiscussionSet.As<IQueryable<Discussion>>().Setup(m => m.ElementType).Returns(DiscussionProvider.AsQueryable().ElementType);
 
             MockADiscussionSet.As<IQueryable<Discussion>>().Setup(m => m.GetEnumerator()).Returns(DiscussionProvider.AsQueryable().GetEnumerator());
-            // MockAnswerSet setup
+
+            // MockUserSet setup
             MockUserSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(UserProvider.AsQueryable().Provider);
 
             MockUserSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(UserProvider.AsQueryable().Expression);
@@ -135,9 +136,13 @@ namespace TwitchForum.Tests.Repositories
         public void GetAllTest()
         {
             var repository = new AnswerRepository(ForumContext.Object);
+
             Assert.IsNotNull(repository, "Ошибка создани репризитория!");
+
             var allAnswers = repository.GetAll();
+
             Assert.IsNotNull(allAnswers, "Ошибка метода GetAll");
+
             Assert.AreEqual(4, allAnswers.Count());
         }
 
@@ -166,8 +171,8 @@ namespace TwitchForum.Tests.Repositories
             Assert.IsNotNull(repository, "Ошибка создани репризитория!");
 
             var answer = repository.Get(expAnswer);
-
-            Assert.Equals(answer, expAnswer);
+            Assert.IsNotNull(answer, "Get возвращает значение!");
+            Assert.AreEqual(answer.Id, expAnswer.Id);
         }
 
         [TestMethod]
@@ -205,6 +210,38 @@ namespace TwitchForum.Tests.Repositories
             catch (Exception ex)
             {
                 Assert.IsNotNull(ex, $"Удаление вернуло ошибку {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public void GetAllForChannelTest()
+        {
+            var repository = new AnswerRepository(ForumContext.Object);
+            Assert.IsNotNull(repository, "Ошибка создани репризитория!");
+
+            var chennalId = 1;
+
+            var answers = repository.GetAllForChannel(chennalId);
+            Assert.IsNotNull(answers, "Get возвращает значение!");
+            Assert.AreEqual(answers.Count(), 2);
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            var answer = new Answer()
+            {
+                Id = 1,
+                DiscussionId = 1,
+                Text = "Answer1Update",
+                UserId = "u1"
+            };
+            var repository = new AnswerRepository(ForumContext.Object);
+            Assert.IsNotNull(repository, "Ошибка создани репризитория!");
+            try { var AddAnswer = repository.Update(answer); }
+            catch (Exception ex)
+            {
+                Assert.IsNotNull(ex, $"Добавление вернуло ошибку {ex.Message}");
             }
         }
     }

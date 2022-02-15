@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +55,13 @@ namespace TwitchForum.DAL.Repositories
 
         public Channel Update(Channel item)
         {
-            throw new NotImplementedException();
+            var channel = _forumContext.Channels.Attach(item);
+
+            _forumContext.Entry(item).State = EntityState.Modified;
+
+            _forumContext.SaveChanges();
+
+            return channel;
         }
     }
 }

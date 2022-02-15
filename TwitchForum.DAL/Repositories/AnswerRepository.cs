@@ -37,7 +37,7 @@ namespace TwitchForum.DAL.Repositories
 
         public Answer Get(Answer item)
         {
-            var answer = _forumContext.Answers.FirstOrDefault(x => x == item);
+            var answer = _forumContext.Answers.FirstOrDefault(x => x.Id == item.Id);
 
             Construct(answer);
 
@@ -46,20 +46,20 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Answer> GetAll()
         {
-            var answers = _forumContext.Answers;
+            var answers = _forumContext.Answers.ToList();
 
             Construct(answers.ToArray());
 
             return answers;
         }
 
-        public async Task<IEnumerable<Answer>> GetAllForChannel(int id)
+        public IEnumerable<Answer> GetAllForChannel(int id)
         {
             var answers = _forumContext.Answers.Where(x => x.DiscussionId == id);
 
             Construct(answers.ToArray());
 
-            return await answers.ToListAsync();
+            return answers;
         }
 
         public Answer GetById(int id)
@@ -82,15 +82,24 @@ namespace TwitchForum.DAL.Repositories
 
         public Answer Update(Answer item)
         {
-            throw new NotImplementedException();
+            var answer = _forumContext.Answers.Attach(item);
+
+            _forumContext.Entry(item).State = EntityState.Modified;
+
+            _forumContext.SaveChanges();
+
+            return answer;
         }
 
         private void Construct(params Answer[] answers)
         {
-            foreach (var item in answers)
+            if (answers != null)
             {
-                item.Discussion = _forumContext.Discussions.FirstOrDefault(x => x.Id == item.DiscussionId);
-                item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
+                foreach (var item in answers)
+                {
+                    item.Discussion = _forumContext.Discussions.FirstOrDefault(x => x.Id == item.DiscussionId);
+                    item.Sender = _forumContext.Users.FirstOrDefault(x => x.Id == item.UserId);
+                }
             }
         }
     }

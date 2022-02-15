@@ -24,7 +24,7 @@ namespace TwitchForum.DAL.Repositories
 
             _forumContext.SaveChanges();
 
-            return _forumContext.Discussions.FirstOrDefault(x => x.Id == created.Id);
+            return _forumContext.Discussions.Attach(created);
         }
 
         public bool Delete(Discussion item)
@@ -38,7 +38,7 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Discussion> GetAll()
         {
-            var discussion = _forumContext.Discussions;
+            var discussion = _forumContext.Discussions.ToList();
 
             Construct(discussion.ToArray());
 
@@ -74,7 +74,7 @@ namespace TwitchForum.DAL.Repositories
 
         public IEnumerable<Discussion> Search(string words)
         {
-            var discuss = _forumContext.Discussions.Where(x => x.Title.ToLower().Contains(words.ToLower()) || x.Text.Contains(words.ToLower()) || x.Channel.Name.Contains(words.ToLower()));
+            var discuss = _forumContext.Discussions.Where(x => x.Title.ToLower().Contains(words.ToLower()) || x.Text.Contains(words.ToLower()) || _forumContext.Channels.FirstOrDefault(c => c.Id == x.ChannelId).Name.Contains(words.ToLower()));
 
             Construct(discuss.ToArray());
 

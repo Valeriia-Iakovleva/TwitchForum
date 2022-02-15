@@ -9,6 +9,6 @@ namespace TwitchForum.DAL.Repositories.Interfaces
 {
     public interface IAnswerRepository : IRepository<Answer>
     {
-        Task<IEnumerable<Answer>> GetAllForChannel(int id);
+        IEnumerable<Answer> GetAllForChannel(int id);
     }
 }

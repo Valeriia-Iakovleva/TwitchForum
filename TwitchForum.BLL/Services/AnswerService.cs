@@ -39,9 +39,9 @@ namespace TwitchForum.BLL.Services
             return _uoW.AnswerRepository.GetAll();
         }
 
-        public async Task<IEnumerable<Answer>> GetAllForChannel(int id)
+        public IEnumerable<Answer> GetAllForChannel(int id)
         {
-            return await _uoW.AnswerRepository.GetAllForChannel(id);
+            return _uoW.AnswerRepository.GetAllForChannel(id);
         }
 
         public Answer GetById(int Id)
