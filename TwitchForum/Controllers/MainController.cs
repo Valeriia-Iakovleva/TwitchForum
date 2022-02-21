@@ -10,7 +10,7 @@ using TwitchForum.DAL.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using TwitchForum.BLL.Services.Interfaces;
-using TwitchForum.Models;
+using TwitchForum.DAL.ViewModels;
 using PagedList;
 
 namespace TwitchForum.Controllers

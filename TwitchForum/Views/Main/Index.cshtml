@@ -1,4 +1,4 @@
-﻿@using TwitchForum.Models
+﻿@using TwitchForum.DAL.ViewModels
 @using PagedList.Mvc;
 @model MainViewModel
 @{
@@ -16,7 +16,7 @@
                 @Html.AntiForgeryToken()
                 <div class="input-group  justify-content-center">
                     <input type="search" name="words" class="form-control search-border p-3" />
-                    <button class="btn btn-outline-secondary search-border p-3" accesskey="Enter" type="submit"><img width="20px" height="20px" src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/452/external-search-ui-dreamstale-lineal-dreamstale.png"></button>
+                    <button class="btn btn-outline-secondary search-border p-3" accesskey="Enter" type="submit"><img width="20px" height="20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAD1ElEQVRoge2Zz2sfRRyGn9lWIjFS25pALsWKJJHUVsGjhail9CpepDehii1VyEGP9iQU4klQ619QqChYBA+2PSr4g9aCNVoRpVo1USvWtMY2Ph5mvs0eTLo/ZtsgeS872e9+3vednd3ZmTeBBlBvBR4CJoAHgFFgA7AOmAfmgG+BaeAD4HgI4asmWp1AHVdfV3+zPj5V96v9XXgLFTuwGZgCHgOKdPp74Bjxjn+Z/r4E9AH9wAiwhThq29N5gBngJeC1EMLVLL2o0IGgTqpz6a4uqEfUCbW4PsM1nvXqPvVsaYROquNd+u+JD6hHS8Lvq/e25Fyj7lFnE+ecujuX5/8S3Kh+lMQuqU9n5h9U30v8/6iTOfl7IgOlTsyoD2YX4dpjO1Ua8b25yY+WOjGWjXxpzQNJ76q6MxfpZOlx6mQkltB9I+n+rA63Jdtcmp2yvhMVtPvUT5L24bZkb/Zmp0z+6upvVa8kD9ubkowbvxELbafYNlBfbXUz1UOJ4Ehmb3V9bFLnk5d6H8v0fPbWThMdeazj563k5WDdwh2p8Jxaae3VJdTHk58zdeoK4OHUPhZCML+12jgOLABjdabiArg/tT/swlVdhBB+B84QV+bbqtYVxOU2xE3QSkHPy8iyV5VQAIOpfT67neb4MR0Hl72qhAK4LbXnsttpjovpeHvVggLo7dLWZrfTHLek499VCwrgj9Rel91Oc/S8XFz2qhIK4Fxq353dTnP0vHxXtaAAvkjt+7LbaY4t6Vg5QiqIKQjEtOOmQx0FhoHLwMk6hSNpSfCXur4rgzX8vNB4BWwMz1T3deCtrpfTyctTTYr3p+Kz6poO/FX1sSv5uNjo6VD7035ZdU8HHqt4KNSPk4eX2xA9l0hm1cpLg1xQ9yb9C+pQG6K1xhhTY3hWORJti7TV7gUfz+YmnMrgsYrmkIuZcL4bqO42xpiqB7KQLq01VJoxv87+SLsY1GkMz/quX1VbY7w0Ej+p9+TW6Ak9Y4wxNYZnWzPxFunFnivdrNPqxhz8S4nuLE3LV4y506YWfLtKU6zqu+r51D7VdWeG1cMl8Xn1bWPacUeF+lH1eRe/2BoD8ifS72M5OlM5/jHGmC8CO0qnF4hBwTRxe3o5nd8A3EVcxZaTkBngEPBKCOHXEvcYcCJd+xnwaPn3TpBe0oPq51bDBfUd9Unjf4OX4m01Mq0COWPutI2YdgwBA8CfwC/ALHGkToUQFiry3fiR6QrGbcUPpZG582Z7aozVzqxUrHZmpWK1MysV/7fOlFcAJ3rnb9h2NhdCCNPAI8A3xNUDAP8CYSPBMhGnVyUAAAAASUVORK5CYII="></button>
                 </div>
             }
         </div>
@@ -27,7 +27,7 @@
         <div class="col-md-8 accordion-body chat-area">
             <h2>Чат</h2>
 
-            <div class="container">
+            <div class="container message-bar">
                 <ul id="discussion">
                     @foreach (var item in Model.Messages)
                     {
@@ -85,15 +85,15 @@
                         @*<input type="text" class="form-control form-control-plaintext " id="message" />*@
                         <textarea class="form-control form-control-plaintext " id="message"></textarea>
                         <div class="send-btn">
-                            <input type="button" class="btn btn-light align-self-end " id="sendmessage" value="Отправить" />
+                            <input type="button" class="btn btn-outline-light align-self-end " id="sendmessage" value="Отправить" />
                         </div>
 
                         <input type="hidden" id="displayname" />
                     </div>
 
                 }
-                <div class="d-flex justify-content-center">
-                    <div>
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <div class="p-1">
                         Страница @(Model.Messages.PageCount < Model.Messages.PageNumber ? 0 : Model.Messages.PageNumber) из @Model.Messages.PageCount
                     </div>
                     <div>

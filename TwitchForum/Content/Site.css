@@ -55,6 +55,27 @@ textarea {
     max-width: 250px;
 }
 
+.message-bar {
+    max-height: 2000px;
+    overflow: auto;
+}
+
+    .message-bar::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .message-bar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+        background-color: #555;
+    }
+
+    .message-bar::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+        border-radius: 10px;
+        background-color: transparent;
+    }
+
 #discussion {
 }
 
@@ -84,10 +105,6 @@ textarea {
     justify-content: end;
 }
 
-.details-link a {
-    color: white;
-}
-
 .acount-body {
     background-color: rgba(10,10,10,0.1);
     width: fit-content;
@@ -95,6 +112,31 @@ textarea {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.page-item a {
+    text-decoration: none;
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: 4px;
+    line-height: 1.25;
+    color: whitesmoke;
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+}
+
+    .page-item a:hover {
+        background-color: #8c8c8c;
+    }
+
+.active a {
+    color: #fff;
+    background-color: #4c4c4f;
+}
+
+.page-item PagedList-skipToNext {
 }
 /*<--------Forum----------->*/
 .forum-new-button {
@@ -239,7 +281,9 @@ textarea {
 }
 
 create-textarea {
+    max-width: 100%;
     width: 100%;
+    height: 10ex;
 }
 
 .answers {
@@ -290,3 +334,8 @@ create-textarea {
     .a-card .card:hover {
         background-color: rgba(250,250,250,0.5)
     }
+
+.create-label {
+    color: whitesmoke;
+    text-decoration: solid;
+}

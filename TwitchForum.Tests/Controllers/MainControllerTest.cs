@@ -18,7 +18,7 @@ using TwitchForum.DAL.Repositories.Interfaces;
 using TwitchForum.DAL.UoW;
 using TwitchForum.BLL.Services.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TwitchForum.Models;
+using TwitchForum.DAL.ViewModels;
 using PagedList;
 
 namespace TwitchForum.Tests.Controllers

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TwitchForum.DAL.Models;
 
-namespace TwitchForum.Models
+namespace TwitchForum.DAL.ViewModels
 {
     public class CreateDiscussionViewModel
     {

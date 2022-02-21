@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace TwitchForum.Models
+namespace TwitchForum.DAL.ViewModels
 {
     public class IndexViewModel
     {

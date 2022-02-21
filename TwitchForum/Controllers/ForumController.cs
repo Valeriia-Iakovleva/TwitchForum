@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using TwitchForum.BLL.Services.Interfaces;
 using TwitchForum.DAL;
 using TwitchForum.DAL.Models;
-using TwitchForum.Models;
+using TwitchForum.DAL.ViewModels;
 
 namespace TwitchForum.Controllers
 {
@@ -62,7 +62,7 @@ namespace TwitchForum.Controllers
         // GET: Forum/Details/5
         public ActionResult Details(int id)
         {
-            var details = new DetailsViewModel() { Answers = _answerService.GetAllForChannel(id), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
+            var details = new DetailsViewModel() { Answers = _answerService.GetAllForChannel(id).ToList(), Disscusion = _forumService.GetById(id), NewAnswer = new Answer() };
             return View(details);
         }
 

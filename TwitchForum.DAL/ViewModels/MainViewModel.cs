@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using TwitchForum.DAL.Models;
 
-namespace TwitchForum.Models
+namespace TwitchForum.DAL.ViewModels
 {
     public class MainViewModel
     {

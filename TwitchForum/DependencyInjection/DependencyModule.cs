@@ -23,7 +23,6 @@ namespace TwitchForum.DependencyInjection
     {
         public override void Load()
         {
-            //Bind<DbContext>().To<ForumContext>();
             Bind<DbContext>().To<ForumContext>().InSingletonScope();
             Bind(typeof(IUserStore<User>)).To(typeof(UserStore<User>)).InRequestScope();
             Bind<IMessagesRepository>().To<MessagesRepository>();
@@ -37,8 +36,6 @@ namespace TwitchForum.DependencyInjection
             Bind<IChannelService>().To<ChannelService>();
             Bind<IForumService>().To<ForumService>();
             Bind<IAnswerService>().To<AnswerService>();
-
-            //Bind<IUserService>().To<UserService>().WithPropertyValue("userService", new UnitOfWork());
         }
     }
 }

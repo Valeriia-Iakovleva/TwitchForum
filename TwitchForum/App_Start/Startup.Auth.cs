@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using TwitchForum.DAL;
 using TwitchForum.DAL.Models;
-using TwitchForum.Models;
+using TwitchForum.DAL.ViewModels;
 
 namespace TwitchForum
 {

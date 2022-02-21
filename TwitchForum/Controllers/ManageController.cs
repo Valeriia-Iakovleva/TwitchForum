@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TwitchForum.DAL;
-using TwitchForum.Models;
+using TwitchForum.DAL.ViewModels;
 
 namespace TwitchForum.Controllers
 {
